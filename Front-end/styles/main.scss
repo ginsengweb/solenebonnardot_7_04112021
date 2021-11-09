@@ -1,8 +1,8 @@
-@import "./base&utils/variables&mixins.scss";
-@import "./base&utils/base&typo.scss";
+@import "./base&utils/variables&mixins";
+@import "./base&utils/base&typo";
 
-@import "./layout/navbar.scss";
-@import "./layout/footer.scss";
+@import "./layout/navbar";
+@import "./layout/footer";
 
-@import "./pages/accueil.scss";
-@import "./pages/auth.scss";
+@import "./pages/accueil";
+@import "./pages/auth";
