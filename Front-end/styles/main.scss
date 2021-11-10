@@ -1,8 +1,7 @@
-@import "./base&utils/variables&mixins";
-@import "./base&utils/base&typo";
+@import "./base&utils/_variables&mixins";
+@import "./base&utils/_base&typo";
 
-@import "./layout/navbar";
-@import "./layout/footer";
+@import "./layout/_navbar";
+@import "./layout/_footer";
 
-@import "./pages/accueil";
-@import "./pages/auth";
+@import "./pages/_accueil";

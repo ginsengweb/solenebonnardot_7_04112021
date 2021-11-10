@@ -11,7 +11,8 @@ exports.getAllComments = (req, res) => {
   // req sql READ = SELECT    '*' pour sélectionner tous les COMENTS d'un postId dans la table POSTS
 }
 // UPDATE one comment
-//
+exports.modifyComment = (req, res) => {}
 // DELETE one comment
+exports.deleteComment = (req, res) => {}
 //
 //

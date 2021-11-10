@@ -3,33 +3,28 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 // ROUTES
-const passwordValidator = require("../middlewares/password-validator")
 const jwb = require("../middlewares/auth")
 
 // MIDDLEWARES
 // Inscription
 exports.signup = (req, res, next) => {
-  if (!passwordSchema.validate(req.body.password)) {
-    return res.status(400).json({
-      error:
-        "Le mot de passe doit contenir entre 8 et 20 caractères, comprenant au moins 1 majuscule, une minuscule, un chiffre et un symbole, sans espaces",
-    })
-  } else {
-    bcrypt
-      .hash(req.body.password, 10) // salage x 10 tours
-      .then(hash => {
-        const user = new User({
-          email: req.body.email,
-          password: hash,
-        })
-        user
-          .save()
-          .then(hash => res.status(201).json({message: "Utilisateur créé!"}))
-          .catch(error => res.status(400).json({error}))
-      })
-      .catch(error => res.status(500).json({error}))
-  }
+  bcrypt
+    .hash(req.body.password, 10) // salage x 10 tours
+    .then(hash => {
+      const user = {
+        ...req.body,
+        user_password: hash,
+      };
+      // INSERT user INTO users ?   => stocker ça dans une const que je réutilise dans fonction .query?  
+      //.query(user) => {           => dois-je absolument mettre db devant le .query ?
+      // si emaildéjà dans db {
+      res.status().json({ message: "Email déjà enregistré" }) //revoir les status 200300ETC.
+      // else {
+      res.status(201).json({ message: "Utilisateur créé avec succès !" });
+    }
+    .catch (error => res.status(500).json({ error }))
 }
+
 // Connexion
 exports.login = (req, res, next) => {
   User.findOne({email: req.body.email}) // Check e-mail is in DB
@@ -59,9 +54,7 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({error}))
 }
 
-// WORKPLACE
-//
-// const mysql = 'INSERT TO user SET';     A QUOI SERT LE '?'
+// const mysql = 'INSERT TO user';     A QUOI SERT LE '?'
 // récupérer middleware d'authentification à la DB => éventuellement stocker ça dans un fichier dans le odssier config
 // '.query() => {} permet d'interagir avec mysql
 //
