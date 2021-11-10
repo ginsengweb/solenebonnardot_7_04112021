@@ -1,12 +1,24 @@
 // PACKAGES
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
+const dbc = require("../config/db")
+const db = dbc.dbConnexion()
 // ROUTES
 const jwb = require("../middlewares/auth")
 
 // MIDDLEWARES
 // Inscription
+exports.test = (req, res) => {
+  db.query("SELECT * FROM users", (err, result, field) => {
+    if (err) {
+      return console.log({err: "l'erreur est ici"})
+    }
+    return console.log(result)
+  })
+  res.status().json({message: "Email déjà enregistré"}) //revoir les status 200300ETC.
+  // else {
+  res.status(201).json({message: "Utilisateur créé avec succès !"})
+}
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10) // salage x 10 tours
@@ -14,15 +26,21 @@ exports.signup = (req, res, next) => {
       const user = {
         ...req.body,
         user_password: hash,
-      };
-      // INSERT user INTO users ?   => stocker ça dans une const que je réutilise dans fonction .query?  
+      }
+      db.query("INSERT user INTO users", (err, result, field) => {
+        if (err) {
+          return console.log(err)
+        }
+        return console.log(result)
+      })
+      // INSERT user INTO users ?   => stocker ça dans une const que je réutilise dans fonction .query?
       //.query(user) => {           => dois-je absolument mettre db devant le .query ?
       // si emaildéjà dans db {
-      res.status().json({ message: "Email déjà enregistré" }) //revoir les status 200300ETC.
+      res.status().json({message: "Email déjà enregistré"}) //revoir les status 200300ETC.
       // else {
-      res.status(201).json({ message: "Utilisateur créé avec succès !" });
-    }
-    .catch (error => res.status(500).json({ error }))
+      res.status(201).json({message: "Utilisateur créé avec succès !"})
+    })
+  //  .catch (error) => res.status(500).json({ error })
 }
 
 // Connexion
