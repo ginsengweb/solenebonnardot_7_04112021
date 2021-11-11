@@ -5,6 +5,10 @@
 
 .navbar {
   background-color: #000150;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .navbar-logo {
@@ -52,33 +56,26 @@
 }
 
 .navbar .auth-inscription {
+  list-style: none;
+}
+
+.navbar .auth-inscription-button {
   border-radius: 10px;
   background-color: #e04b4b;
   padding: 8px 20px;
   margin: 20px 10px;
   font-family: "Roboto", sans-serif;
   text-align: center;
-  list-style: none;
-}
-
-.navbar .auth-inscription-a {
-  text-decoration: none;
   color: white;
 }
 
-.navbar .auth-connexion {
+.navbar .auth-connexion-button {
   border-radius: 10px;
   background-color: #e04b4b;
   padding: 8px 20px;
   margin: 20px 10px;
   font-family: "Roboto", sans-serif;
   text-align: center;
-  list-style: none;
-}
-
-.navbar .auth-connexion-a {
-  text-decoration: none;
-  color: white;
 }
 
 footer {
@@ -90,14 +87,14 @@ footer .logofooter {
 }
 
 .intro {
-  background-image: url("../../images/jeune-femme-bureau-travail-sourire.jpg");
+  background-image: url("/Front-end/images/jeune-femme-bureau-travail-sourire.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  position: absolute;
 }
 
 .intro-opacity {
-  height: 410px;
   padding: 30px 20px 20px 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -146,8 +143,26 @@ footer .logofooter {
   width: 60px;
 }
 
+#authblock {
+  position: relative;
+  width: 50%;
+  min-width: 100px;
+  margin: 0px auto;
+  padding: 30px auto;
+  background-color: #e04b4b;
+  border: solid 1px #ffb9b9;
+  border-radius: 3px;
+}
+
+#authblock-signup, #authblock-login {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  height: 300px;
+}
+
 .profile {
-  background-image: url("../../images/reseau-social.jpg");
+  background-image: url("/Front-end/images/reseau-social.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -161,13 +176,5 @@ footer .logofooter {
   font-size: 1.8rem;
   text-shadow: white 1px 2px 1px;
   text-align: center;
-}
-
-footer {
-  background-color: #000150;
-}
-
-footer .logofooter {
-  width: 60%;
 }
 /*# sourceMappingURL=main.css.map */

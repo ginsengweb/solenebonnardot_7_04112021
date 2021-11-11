@@ -4,17 +4,6 @@ const app = express()
 const path = require("path")
 const {stringify} = require("querystring")
 
-// DATABASE MYSQL
-const dbConfig = require("./config/db")
-const db = dbConfig.dbConnexion()
-db.connect(function (err) {
-  if (err) {
-    throw err
-  } else {
-    console.log("Connecté à la base de données MySQL!")
-  }
-})
-
 // CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", `${process.env.HOST}`)
@@ -35,7 +24,7 @@ app.use((req, res, next) => {
 // const postRoutes = require("./routes/post.routes")
 const authRoutes = require("./routes/auth")
 // const commentRoutes = require("./routes/comment.routes")
-app.use(express.json())
+// app.use(express.json())
 app.use("/api/auth", authRoutes)
 // app.use("/api/user", userRoutes)
 // app.use("/api/post", postRoutes)

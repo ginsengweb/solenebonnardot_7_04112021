@@ -12,3 +12,14 @@ const db = mysql.createConnection({
 module.exports.dbConnexion = () => {
   return db
 }
+
+// DATABASE MYSQL
+const dbConfig = require("./config/db")
+const db = dbConfig.dbConnexion()
+db.connect(function (err) {
+  if (err) {
+    throw err
+  } else {
+    console.log("Connecté à la base de données MySQL!")
+  }
+})
