@@ -3,10 +3,12 @@ const express = require("express")
 const app = express()
 const path = require("path")
 const {stringify} = require("querystring")
+const dbc = require("./config/db")
+const db = dbc.dbPool()
 
 // CORS
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", `${process.env.HOST}`)
+  res.setHeader("Access-Control-Allow-Origin", `${process.env.PORT}`)
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
@@ -18,16 +20,24 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true")
   next()
 })
-
+db.connect(function (err) {
+  if (err) {
+    console.log("erreur DB" + err)
+  } else {
+    console.log("Connecté à la base de données MySQL!")
+  }
+})
 // ROUTES
-// const userRoutes = require("./routes/user.routes")
-// const postRoutes = require("./routes/post.routes")
+const usersRoutes = require("./routes/users")
+const postsRoutes = require("./routes/posts")
 const authRoutes = require("./routes/auth")
-// const commentRoutes = require("./routes/comment.routes")
-// app.use(express.json())
+const commentsRoutes = require("./routes/comments")
+
+app.use(express.json())
+
 app.use("/api/auth", authRoutes)
-// app.use("/api/user", userRoutes)
-// app.use("/api/post", postRoutes)
-// app.use("/api/comment", commentRoutes)
+app.use("/api/users", usersRoutes)
+app.use("/api/posts", postsRoutes)
+app.use("/api/comments", commentsRoutes)
 
 module.exports = app

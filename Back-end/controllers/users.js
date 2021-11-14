@@ -6,10 +6,6 @@
 //           => peut-être créer une colonnes désactivé dans la table users, ou créer une table desactivés avec les users_id (il me semble que
 // cette dernière solution semble être plus propre du fonctionnement naturel de mysql)
 //
-//
-//
-//
-//
-//
-//
-//
+exports.getOneUser = (req, res) => {}
+
+exports.updateOneUser = (req, res) => {}

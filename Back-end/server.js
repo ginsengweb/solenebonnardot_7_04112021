@@ -12,8 +12,8 @@ const normalizePort = val => {
   }
   return false
 }
-const port = normalizePort("3306", () => {
-  console.log("Server (should) started on port 3306")
+const port = normalizePort("3000", () => {
+  console.log("Server (should) started on port 3000")
 })
 app.set("port", port)
 

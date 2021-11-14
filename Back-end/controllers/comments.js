@@ -1,3 +1,6 @@
+const dbc = require("../config/db")
+const db = dbc.dbConnexion()
+
 // CRUD
 // CREATE one comment
 exports.createComment = (req, res) => {
