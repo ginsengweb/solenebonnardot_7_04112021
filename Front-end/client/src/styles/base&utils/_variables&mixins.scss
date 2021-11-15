@@ -1,0 +1,27 @@
+// VARIABLES
+$dark-blue: rgb(0, 1, 80);
+$red: rgb(224, 75, 75);
+$textshadow: rgb(255, 255, 255) 1px 2px 1px;
+// MIXINS
+@mixin community($fontsize) {
+  font-family: "Lora", serif;
+  font-size: $fontsize;
+  color: $red;
+}
+@mixin groupomania($fontsize) {
+  font-family: "Lato", sans-serif;
+  font-size: $fontsize;
+  font-weight: 900;
+}
+@mixin text($fontsize) {
+  font-family: "Roboto", sans-serif;
+  font-size: $fontsize;
+}
+@mixin button {
+  border-radius: 10px;
+  background-color: $red;
+  padding: 8px 20px;
+  margin: 20px 10px;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}

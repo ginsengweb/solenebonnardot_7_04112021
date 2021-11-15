@@ -1,0 +1,73 @@
+.intro {
+  // background-image: url("../../../public/images/jeune-femme-bureau-travail-sourire.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  &-opacity {
+    padding: 30px 20px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // align-items: flex-end;
+    background-color: rgba(128, 128, 128, 0.5);
+    &-groupomania {
+      @include groupomania(2.4rem);
+      width: 260px;
+      text-shadow: $textshadow;
+      margin-top: 10px;
+      height: 60px;
+    }
+    &-community {
+      @include community(2.8rem);
+      width: 260px;
+      text-shadow: $textshadow;
+      margin: 0;
+      padding-bottom: 15px;
+      height: 60px;
+    }
+    &-text {
+      @include text(1.3rem);
+      width: 100%;
+      margin: 0;
+      height: 60px;
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    &-logosimple {
+      width: 60px;
+    }
+  }
+}
+#authblock {
+  position: relative;
+  // height: 300px;
+  width: 50%;
+  min-width: 100px;
+  margin: 0px auto;
+  padding: 30px auto;
+  background-color: $red;
+  border: solid 1px rgb(255, 185, 185);
+  border-radius: 3px;
+  &-signup,
+  &-login {
+    color: white;
+    @include text(1rem);
+    height: 300px;
+  }
+}
+.profile {
+  // background-image: url("../../../public/images/reseau-social.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 410px;
+  padding: 30px 20px 20px 20px;
+  &-title {
+    color: rgb(85, 85, 214);
+    @include text(1.8rem);
+    text-shadow: $textshadow;
+    text-align: center;
+  }
+}
