@@ -1,4 +1,6 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: rgb(255, 243, 233);
+  @include text(1rem);
 }

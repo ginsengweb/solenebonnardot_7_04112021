@@ -6,7 +6,7 @@ const Log = () => {
   const [inscriptionModal, setInscriptionModal] = useState(true)
   const [connexionModal, setConnexionModal] = useState(false)
 
-  const handleModal = e => {
+  const handleModals = e => {
     if (e.target.id === "inscription") {
       setInscriptionModal(true)
       setConnexionModal(false)
@@ -20,8 +20,12 @@ const Log = () => {
     <div className="connection-form">
       <div className="form-container">
         <ul>
-          <li onClick={handleModal}>Je m'inscris</li>
-          <li onClick={handleModal}>Je me connecte</li>
+          <li onClick={handleModals} id="inscription">
+            Je m'inscris
+          </li>
+          <li onClick={handleModals} id="connexion">
+            Je me connecte
+          </li>
         </ul>
         {inscriptionModal && <Inscription />}
         {connexionModal && <Connexion />}

@@ -2,9 +2,8 @@
 const express = require("express")
 const app = express()
 const path = require("path")
-const {stringify} = require("querystring")
-const dbc = require("./config/db")
-const db = dbc.dbPool()
+const pool = require("./config/db")
+const poolConnexion = pool.dbPool()
 
 // CORS
 app.use((req, res, next) => {
@@ -20,7 +19,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true")
   next()
 })
-db.connect(function (err) {
+poolConnexion.getConnection(function (err) {
   if (err) {
     console.log("erreur DB" + err)
   } else {

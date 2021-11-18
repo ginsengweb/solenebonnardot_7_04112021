@@ -1,10 +1,14 @@
-import React from "react"
-import Routes from "./components/Routes"
+import * as React from "react"
+import {Routes, Route, Link} from "react-router-dom"
+import Accueil from "../src/Pages/Accueil"
+import "./styles/main.scss"
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <Routes />
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+      </Routes>
     </div>
   )
 }
