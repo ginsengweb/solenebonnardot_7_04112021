@@ -5,11 +5,35 @@ const Connexion = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const handleInscription = e => {}
+  const handleConnexion = e => {
+    const emailError = document.querySelector(".email.error")
+    const passwordError = document.querySelector(".password.error")
+    e.preventDefault()
+    axios({
+      method: "post",
+      url: `http://localhost:3000/api/auth/connexion`,
+      withCredentials: true,
+      data: {
+        email,
+        password,
+      },
+    })
+      .then(res => {
+        if (res.data.errors) {
+          emailError.innerHTML = res.data.errors.email
+          passwordError.innerHTML = res.data.errors.password
+        } else {
+          window.location = "/"
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   return (
     <div>
-      <form action="" onSubmit={handleInscription} id="inscription-form">
+      <form action="" onSubmit={handleConnexion} id="inscription-form">
         <label htmlFor="email">Email</label>
         <br />
         <input

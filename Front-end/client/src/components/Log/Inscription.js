@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import axios from "axios"
+// import
 
 const Inscription = () => {
   const [prenom, setPrenom] = useState("")
@@ -13,7 +14,7 @@ const Inscription = () => {
     e.preventDefault()
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/user/inscription`,
+      url: `http://localhost:3000/api/auth/inscription`,
       withCredentials: true,
       data: {
         prenom,

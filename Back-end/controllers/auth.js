@@ -1,5 +1,6 @@
 // PACKAGES**************************
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 const dbc = require("../config/db")
 const db = dbc.dbPool()
 const jwb = require("../middlewares/auth")
@@ -8,16 +9,15 @@ const jwb = require("../middlewares/auth")
 // Inscription
 exports.inscription = async (req, res) => {
   try {
+    // Bcrypt : salt & hash
     const {password: passwordToCrypt} = req.body
-
-    // bcrypt
     const salt = await bcrypt.genSalt(10)
     const encryptedPassword = await bcrypt.hash(passwordToCrypt, salt)
-
     const user = {
       ...req.body,
       password: encryptedPassword,
     }
+    // Base de données
     const sql = "INSERT INTO users SET ?"
     db.query(sql, user, (err, result) => {
       console.log(result)
@@ -33,9 +33,28 @@ exports.inscription = async (req, res) => {
 }
 
 // Connexion
-
-// On parle dans les specs de persistance de la session, donc si users veut se déconnecter, peut-être créer un middleware pour se déconnecter
-//
-// Persistance des données => COOKIES !!!! aucune diée du fonctionnement des cookies, check cours
-//
-//
+exports.connexion = (req, res) => {
+  const {email, password} = req.body
+  const sql = `SELECT * FROM users WHERE email= ?`
+  db.query(sql, [email], async (err, results) => {
+    if (err) {
+      return res.status(404).json({err})
+    } else {
+      // check ce que ça veut dire
+      try {
+        const {password: hashedPassword} = results[0]
+        const passwordIsSame = await bcrypt.compare(password, hashedPassword)
+        if (passwordIsSame) {
+          token: jwt.sign({id}, "RANDOM_TOKEN_SECRET", {
+            expiresIn: "24h",
+          })
+        } else {
+          console.log("The password is not the same")
+        }
+      } catch (err) {
+        console.log(err)
+        return res.status(400).json({err})
+      }
+    }
+  })
+}
