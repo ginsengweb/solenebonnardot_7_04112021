@@ -1,25 +1,47 @@
 const db = require("../models")
+const bcrypt = require("bcrypt")
+const {Op} = require("sequelize")
+const jwt = require("jsonwebtoken")
 
 const User = db.users
 
 module.exports.inscription = async (req, res) => {
+  const hash = await bcrypt.hash(req.body.password, 10)
   let userInfo = {
     email: req.body.email,
-    password: req.body.password,
+    password: hash,
   }
   const user = await User.create(userInfo)
-  res.status(200).send(user)
+  res.status(200).json({
+    user: user.id,
+    token: jwt.sign({userId: user.id}, "SECRET_TOKEN", {
+      expiresIn: "24h",
+    }),
+  })
 }
 
-module.exports.connexion = (req, res) => {
-  // console.log("connexion en cours de création")
-  // Check si email is in DB :
-  // let userinfo = { email: req.body.email, pass....}
-  // let email exists = ...;
-  // if (!emailexist) { res.status.400 email inexistant }
-  // else {
-  //   bcrypt.compare
-  //   if (!passwordissame) {mauvais mdp }
-  //   else { }
-  // }
+module.exports.connexion = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
+    })
+    if (user == null) {
+      return res.status(403).send({error: "Vous n'êtes pas inscrit"})
+    } else {
+      const match = await bcrypt.compare(req.body.password, user.password)
+      if (match) {
+        return res.status(401).json({error: "Mot de passe incorrect !"})
+      } else {
+        const Token = {
+          userId: user._id,
+          token: jwt.sign({userId: user.id}, `${process.env.TOKEN_SECRET}`, {
+            expiresIn: "24h",
+          }),
+        }
+        res.status(200).json(Token)
+      }
+    }
+  } catch (error) {
+    return res.status(500).send({error: "Erreur serveur"})
+  }
 }

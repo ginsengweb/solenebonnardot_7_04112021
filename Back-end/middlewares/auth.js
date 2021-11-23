@@ -1,18 +1,25 @@
-const jwt = require("jsonwebtoken")
+const JWT = require("jsonwebtoken")
 
-module.exports = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1]
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET")
-    const id = decodedToken.id
-    if (req.body.id && req.body.id !== id) {
-      throw "Utilisateur invalide"
-    } else {
-      next()
-    }
-  } catch {
-    res.status(401).json({
-      error: new Error("Requête invalide !"),
-    })
+function issueJWT(user) {
+  const id = user.id
+  const expiresIn = "24H"
+  const payload = {
+    sub: id,
+    iat: Date.now(),
+  }
+  const signedToken = JWT.sign(payload, "secret", {expiresIn: expiresIn})
+  return {
+    token: "Bearer " + signedToken,
+    expires: expiresIn,
   }
 }
+function getUserId(req) {
+  // on vérifie le userId du token
+  const token = req.headers.authorization.split(" ")[1] // on récupère le token de la requête entrante
+  const decodedToken = JWT.verify(token, "secret") // on le vérifie
+  const userId = decodedToken.sub
+  return userId // on récupère l'id du token
+}
+
+module.exports.issueJWT = issueJWT
+module.exports.getUserId = getUserId

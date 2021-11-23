@@ -5,6 +5,7 @@ const app = express()
 
 let corsOptions = {
   origin: `http://localhost:3000`,
+  allowHeader: ["Content-Type", "Authorization"],
 }
 
 //midlewares
@@ -17,11 +18,6 @@ const authRouter = require("./routes/auth")
 const postsRouter = require("./routes/posts")
 app.use("/api/auth", authRouter)
 app.use("/api/posts", postsRouter)
-
-// testing api
-app.get("/", (req, res) => {
-  res.json({message: "hello from api"})
-})
 
 // port
 const PORT = process.env.PORT || 4200

@@ -10,20 +10,27 @@ const Connexion = () => {
     const passwordError = document.querySelector(".password.error")
     e.preventDefault()
     axios({
-      method: "post",
+      method: "POST",
       url: `http://localhost:4200/api/auth/connexion`,
-      withCredentials: true,
       data: {
         email,
         password,
       },
+      headers: {
+        // "content-type": "application/json",
+        "Authorization": "Bearer" + localStorage.getItem("tokenStorage"),
+      },
     })
       .then(res => {
+        let token = JSON.stringify(res.data)
+        localStorage.setItem("Token", token)
+        axios.defaults.headers.common["Authorization"] = "Bearer " + token
+        // this.$router.push({name: "HomePage"})
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email
           passwordError.innerHTML = res.data.errors.password
         } else {
-          window.location = "/"
+          console.log(token)
         }
       })
       .catch(err => {
@@ -60,3 +67,5 @@ const Connexion = () => {
   )
 }
 export default Connexion
+
+// REGARDER INSCIRPTION ET AJOUTER LOGIQUE TOKEN AUSSI
