@@ -1,14 +1,14 @@
-// DOTENV
-require("dotenv").config({path: "./config/.env"})
+module.exports = {
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "Soso300398$",
+  DB: "groupomania",
+  dialect: "mysql",
 
-// MYSQL
-const mysql = require("mysql")
-const db = mysql.createPool({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DBNAME,
-})
-module.exports.dbPool = () => {
-  return db
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
 }

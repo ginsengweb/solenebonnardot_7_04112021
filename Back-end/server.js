@@ -1,49 +1,32 @@
-const http = require("http")
-const app = require("./app")
+const express = require("express")
+const cors = require("cors")
 
-const normalizePort = val => {
-  const port = parseInt(val, 10)
+const app = express()
 
-  if (isNaN(port)) {
-    return val
-  }
-  if (port >= 0) {
-    return port
-  }
-  return false
-}
-const port = normalizePort("4200", () => {
-  console.log("Server (should) started on port 4200")
-})
-app.set("port", port)
-
-const errorHandler = error => {
-  if (error.syscall !== "listen") {
-    throw error
-  }
-  const address = server.address()
-  const bind = typeof address === "string" ? "pipe " + address : "port: " + port
-  switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges.")
-      process.exit(1)
-      break
-    case "EADDRINUSE":
-      console.error(bind + " is already in use.")
-      process.exit(1)
-      break
-    default:
-      throw error
-  }
+let corsOptions = {
+  origin: `http://localhost:3000`,
 }
 
-const server = http.createServer(app)
+//midlewares
+app.use(cors(corsOptions))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
-server.on("error", errorHandler)
-server.on("listening", () => {
-  const address = server.address()
-  const bind = typeof address === "string" ? "pipe " + address : "port " + port
-  console.log("Listening on " + bind)
+// routers
+const authRouter = require("./routes/auth")
+const postsRouter = require("./routes/posts")
+app.use("/api/auth", authRouter)
+app.use("/api/posts", postsRouter)
+
+// testing api
+app.get("/", (req, res) => {
+  res.json({message: "hello from api"})
 })
 
-server.listen(port)
+// port
+const PORT = process.env.PORT || 4200
+
+//server
+app.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`)
+})

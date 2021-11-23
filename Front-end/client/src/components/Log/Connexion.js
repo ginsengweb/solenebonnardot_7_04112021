@@ -11,7 +11,7 @@ const Connexion = () => {
     e.preventDefault()
     axios({
       method: "post",
-      url: `http://localhost:3000/api/auth/connexion`,
+      url: `http://localhost:4200/api/auth/connexion`,
       withCredentials: true,
       data: {
         email,

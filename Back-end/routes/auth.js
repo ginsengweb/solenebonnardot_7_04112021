@@ -1,10 +1,10 @@
-const express = require("express")
-const router = express.Router()
-const userCtrl = require("../controllers/auth")
+const {Router} = require("express")
+const userCtrl = require("../controllers/auth.js")
 const auth = require("../middlewares/auth")
+const router = require("express").Router()
 
 router.post("/inscription", userCtrl.inscription)
-router.post("/connexion", auth, userCtrl.connexion)
+router.post("/connexion", userCtrl.connexion)
 // router.???("/logout", userCtrl.logout)
 // router. desactivation du compte
 

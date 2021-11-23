@@ -1,34 +1,32 @@
 import React, {useState} from "react"
 import axios from "axios"
-// import
+axios.defaults.baseURL = "http://localhost:4200/api/auth"
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded"
 
 const Inscription = () => {
-  const [prenom, setPrenom] = useState("")
-  const [nom, setNom] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleInscription = e => {
+    e.preventDefault()
     const emailError = document.querySelector(".email.error")
     const passwordError = document.querySelector(".password.error")
-    e.preventDefault()
     axios({
-      method: "post",
-      url: `http://localhost:3000/api/auth/inscription`,
-      withCredentials: true,
+      method: "POST",
+      url: `/inscription`,
       data: {
-        prenom,
-        nom,
         email,
         password,
       },
     })
       .then(res => {
+        console.log(res)
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email
           passwordError.innerHTML = res.data.errors.password
         } else {
-          window.location = "/"
+          window.location = "/posts"
         }
       })
       .catch(err => {
@@ -39,26 +37,6 @@ const Inscription = () => {
   return (
     <div>
       <form action="" onSubmit={handleInscription} id="inscription-form">
-        <label htmlFor="nom">Nom</label>
-        <br />
-        <input
-          type="text"
-          name="nom"
-          id="nom"
-          onChange={e => setNom(e.target.value)}
-          value={nom}
-        />
-        <br />
-        <label htmlFor="prenom">Prénom</label>
-        <br />
-        <input
-          type="text"
-          id="prenom"
-          name="prenom"
-          onChange={e => setPrenom(e.target.value)}
-          value={prenom}
-        />
-        <br />
         <label htmlFor="email">Email</label>
         <br />
         <input
@@ -79,7 +57,7 @@ const Inscription = () => {
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
-        <div className="password error">Mot de passe invalide</div>
+        <div className="passwordConfirmError"></div>
         <br />
         <input type="submit" value="Je m'inscris" />
       </form>
