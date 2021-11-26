@@ -1,8 +1,9 @@
 import Log from "../components/Log"
+import SecuredConnexion from "../components/Log"
 
 const Accueil = () => {
   return (
-    <div className="profil-page">
+    <div className="accueil">
       <div className="log-container">
         <Log />
       </div>

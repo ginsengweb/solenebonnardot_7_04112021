@@ -6,6 +6,7 @@ const app = express()
 let corsOptions = {
   origin: `http://localhost:3000`,
   allowHeader: ["Content-Type", "Authorization"],
+credentials: true
 }
 
 //midlewares

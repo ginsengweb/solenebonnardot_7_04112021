@@ -1,6 +1,5 @@
 const {Router} = require("express")
 const userCtrl = require("../controllers/auth.js")
-const auth = require("../middlewares/auth")
 const router = require("express").Router()
 
 router.post("/inscription", userCtrl.inscription)

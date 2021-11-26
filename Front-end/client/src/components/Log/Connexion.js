@@ -1,9 +1,11 @@
 import React, {useState} from "react"
 import axios from "axios"
+import {useNavigate} from "react-router-dom"
 
 const Connexion = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const handleConnexion = e => {
     const emailError = document.querySelector(".email.error")
@@ -16,16 +18,15 @@ const Connexion = () => {
         email,
         password,
       },
-      headers: {
-        // "content-type": "application/json",
-        "Authorization": "Bearer" + localStorage.getItem("tokenStorage"),
-      },
     })
       .then(res => {
         let token = JSON.stringify(res.data)
         localStorage.setItem("Token", token)
         axios.defaults.headers.common["Authorization"] = "Bearer " + token
-        // this.$router.push({name: "HomePage"})
+        const toRedirect = link => {
+          navigate(link)
+        }
+        toRedirect("/posts")
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email
           passwordError.innerHTML = res.data.errors.password
@@ -67,5 +68,3 @@ const Connexion = () => {
   )
 }
 export default Connexion
-
-// REGARDER INSCIRPTION ET AJOUTER LOGIQUE TOKEN AUSSI

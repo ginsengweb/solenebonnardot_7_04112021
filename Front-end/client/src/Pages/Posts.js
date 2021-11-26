@@ -1,30 +1,34 @@
-// import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import axios from "axios"
-// import
+import Card from "../components/PostCard"
 
-const getAllPosts = () => {
-  const text_content = document.querySelector("textcontent")
+const GetAllPosts = () => {
+  const [data, setData] = useState([])
+  useEffect(()=>{
   axios({
-    method: "get",
-    url: `http://localhost:4200/api/posts`,
-    withCredentials: true,
-    data: {
-      text_content,
-    },
+    method: "GET",
+    url: `http://localhost:4200/api/posts/`,
   })
     .then(res => {
-      console.log(res)
-      if (res.data.errors) {
-        text_content.innerHTML = res.data.errors.text_content
-      } else {
-        text_content.innerHTML = text_content
-      }
+      setData(res.data)
+    //   if (res.data.errors) {
+    //     text.innerHTML = res.data.errors
+    //   } else {
+    //     text.innerHTML = data
+    //   }
+    // })
+    // .catch(err => {
+      console.log(data)
     })
-    .catch(err => {
-      console.log(err)
-    })
+  }, [])
+  return( 
+  <div className="posts">
+    <ul className="posts-list">
+      {data.map((post) => (
+        <Card post={post} key="post.name" />
+      ))}
+    </ul>
+  </div>
+  )}
 
-  return <div className="textcontent">blabla</div>
-}
-
-export default getAllPosts
+export default GetAllPosts

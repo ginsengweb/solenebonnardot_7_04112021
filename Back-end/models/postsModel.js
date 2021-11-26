@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
-    text_content: {type: DataTypes.STRING(500), allowNull: true},
+    text_content: {type: DataTypes.STRING, allowNull: true},
     media_content: {type: DataTypes.STRING, allowNull: true}, //string parceque ce ser l'URL de l'image que je mettrai dans un dossier
   })
   return Post

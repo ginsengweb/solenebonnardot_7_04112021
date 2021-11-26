@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import axios from "axios"
+import {useNavigate} from "react-router-dom"
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
 axios.defaults.headers.post["Content-Type"] =
@@ -9,6 +10,7 @@ const Inscription = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const navigate = useNavigate()
   const handleInscription = e => {
     e.preventDefault()
     const emailError = document.querySelector(".email.error")
@@ -20,19 +22,18 @@ const Inscription = () => {
         email,
         password,
       },
-      // mettre un paramètre header authorisation qui va envoyer le token
     })
       .then(res => {
         console.log(res)
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email
-          passwordError.innerHTML = res.data.errors.password //déceonseillé de faire des innerhtml, plutot faire des états poru définir ça (state error, et afficahge de manière conditionnelle dans le return)
+          passwordError.innerHTML = res.data.errors.password
+          //déceonseillé de faire des innerhtml, plutot faire des états poru définir ça (state error, et afficahge de manière conditionnelle dans le return)
         } else {
-          console.log("check si token récupéré")
-          // récup TOKEN
-          // puis mettre dans le localstorage pour sécuriser la route
-          // window.location = "/posts"  //regarder fonction redirect ou react route plutot
-          // a la page post on récup localstorage dans lequel il y a le TOKEN
+          const toRedirect = link => {
+            navigate(link)
+          }
+          toRedirect("/posts")
         }
       })
       .catch(err => {
@@ -63,8 +64,8 @@ const Inscription = () => {
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
-        <div className="passwordConfirmError"></div> // ici mettre une condition
-        true ou false (state=....)
+        <div className="passwordConfirmError"></div>
+        {/* ici mettre une condition true ou false (state=....) */}
         <br />
         <input type="submit" value="Je m'inscris" />
       </form>

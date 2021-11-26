@@ -33,8 +33,8 @@ module.exports.connexion = async (req, res) => {
         return res.status(401).json({error: "Mot de passe incorrect !"})
       } else {
         const Token = {
-          userId: user._id,
-          token: jwt.sign({userId: user.id}, `${process.env.TOKEN_SECRET}`, {
+          id: user.id,
+          token: jwt.sign({id: user.id}, `${process.env.TOKEN_SECRET}`, {
             expiresIn: "24h",
           }),
         }

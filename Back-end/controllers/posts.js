@@ -1,4 +1,7 @@
-const db = require("../models/postsModel")
+const db = require("../models")
+const bcrypt = require("bcrypt")
+const {Op} = require("sequelize")
+const jwt = require("jsonwebtoken")
 
 const Post = db.posts
 
@@ -12,11 +15,10 @@ const addPost = async (req, res) => {
 }
 
 const getAllPosts = async (req, res) => {
-  let posts = await Post.findAll({
-    attributes: ["text_content", "media_content"],
+  Post.findAll().then((posts) => {
+    res.json(posts)
   })
-  res.send(posts)
-}
+  }
 
 const updatePost = async (req, res) => {
   let id = req.params.id
