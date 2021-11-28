@@ -1,13 +1,24 @@
+const {Model} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
-  const Post = sequelize.define("post", {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true,
+  class Posts extends Model {
+    static associate(models) {
+      models.Posts.belongsTo(models.User, {
+        foreignKey: {
+          allowNull: false,
+        },
+        onDelete: "CASCADE",
+      })
+    }
+  }
+  Posts.init(
+    {
+      text_content: {type: DataTypes.STRING, allowNull: true},
+      media_content: {type: DataTypes.STRING, allowNull: true},
     },
-    text_content: {type: DataTypes.STRING, allowNull: true},
-    media_content: {type: DataTypes.STRING, allowNull: true}, //string parceque ce ser l'URL de l'image que je mettrai dans un dossier
-  })
-  return Post
+    {
+      sequelize,
+      modelName: "Posts",
+    }
+  )
+  return Posts
 }

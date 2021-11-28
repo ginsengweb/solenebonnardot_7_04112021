@@ -3,14 +3,8 @@ import {Routes, Route} from "react-router-dom"
 import Accueil from "../src/Pages/Accueil"
 import Profil from "./Pages/Profil"
 import Posts from "./Pages/Posts"
-import "./styles/main.scss"
-import {
-  RecoilRoot,
-  // atom,
-  // selector,
-  // useRecoilState,
-  // useRecoilValue,
-} from "recoil"
+import "./styles/main.css"
+import {RecoilRoot} from "recoil"
 
 function App() {
   return (
