@@ -6,15 +6,15 @@ const Card = props => {
 
   return (
     // <div>Card</div>
-    <li class="card">
+    <li className="card">
       {/* <div className="data-header">
             <ul>
                 {/* <li>{post.author}</li> */}
       {/* <li>{posts.updatedAt}</li> */}
       {/* </ul> */}
       {/* </div> */}
-      <div class="data-container">
-        <p class="textcontent">{post.text_content}</p>
+      <div className="data-container">
+        <p className="textcontent">{post.text_content}</p>
         {/* <img src={posts.media_content}/> */}
       </div>
     </li>

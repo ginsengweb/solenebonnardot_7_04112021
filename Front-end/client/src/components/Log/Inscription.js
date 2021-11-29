@@ -1,6 +1,8 @@
 import React, {useState} from "react"
 import axios from "axios"
+import SecuredConnexion from "./SecuredConnection"
 import {useNavigate} from "react-router-dom"
+
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
 axios.defaults.headers.post["Content-Type"] =
@@ -22,6 +24,9 @@ const Inscription = () => {
         email,
         password,
       },
+      header: {
+        "Authorization": "TOKEN",
+      },
     })
       .then(res => {
         console.log(res)
@@ -33,6 +38,7 @@ const Inscription = () => {
           const toRedirect = link => {
             navigate(link)
           }
+          SecuredConnexion()
           toRedirect("/posts")
         }
       })

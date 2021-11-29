@@ -1,4 +1,4 @@
-import GetAllPosts from "../components/Posts"
+import GetAllPosts from "../components/Posts/index"
 
 const Posts = () => {
   return (

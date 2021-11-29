@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import axios from "axios"
-import Card from "./PostCard"
+import Card from "../Posts/PostCard"
 
 const GetAllPosts = () => {
   const [data, setData] = useState([])

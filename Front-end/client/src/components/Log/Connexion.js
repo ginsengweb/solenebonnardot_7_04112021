@@ -18,6 +18,9 @@ const Connexion = () => {
         email,
         password,
       },
+      header: {
+        "Authorisation": "TOKEN",
+      },
     })
       .then(res => {
         let token = JSON.stringify(res.data)
@@ -32,6 +35,8 @@ const Connexion = () => {
           passwordError.innerHTML = res.data.errors.password
         } else {
           console.log(token)
+          console.log(res)
+          console.log(localStorage)
         }
       })
       .catch(err => {
