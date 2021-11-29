@@ -3,9 +3,9 @@ const router = express.Router()
 const postCtrl = require("../controllers/posts")
 const auth = require("../middlewares/auth")
 
-router.post("/:id", auth, postCtrl.createPost)
+// router.post("/:id", postCtrl.createPost)
 router.get("/", postCtrl.getAllPosts)
-router.put("/:id", auth, postCtrl.updatePost)
-router.delete("/:id", auth, postCtrl.deletePost)
+// router.put("/:id", postCtrl.updatePost)
+// router.delete("/:id", postCtrl.deletePost)
 
 module.exports = router

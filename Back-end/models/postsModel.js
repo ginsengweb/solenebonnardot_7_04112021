@@ -1,17 +1,23 @@
 const {Model} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   class Posts extends Model {
-    static associate(models) {
-      models.Posts.belongsTo(models.User, {
+    static associate({Users}) {
+      Posts.belongsToMany(Users, {
         foreignKey: {
-          allowNull: false,
+          type: DataTypes.INTEGER,
         },
-        onDelete: "CASCADE",
+        allowNull: false,
       })
     }
   }
   Posts.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       text_content: {type: DataTypes.STRING, allowNull: true},
       media_content: {type: DataTypes.STRING, allowNull: true},
     },

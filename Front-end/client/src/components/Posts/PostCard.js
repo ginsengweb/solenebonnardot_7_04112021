@@ -1,5 +1,4 @@
 import React from "react"
-import "../styles/main.css"
 
 const Card = props => {
   // destructuring (pour ne pas appeler props.country à chaque fois)

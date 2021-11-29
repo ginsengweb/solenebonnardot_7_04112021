@@ -1,3 +1,7 @@
+const {Op} = require("sequelize")
+const db = require("../models")
+const User = db.users
+
 const getOneUser = async (req, res) => {
   let id = req.params.id
   let user = await User.findOne({

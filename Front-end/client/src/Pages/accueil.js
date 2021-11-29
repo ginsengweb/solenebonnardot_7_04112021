@@ -1,5 +1,4 @@
 import Log from "../components/Log"
-import SecuredConnexion from "../components/Log"
 
 const Accueil = () => {
   return (
