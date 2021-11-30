@@ -29,7 +29,18 @@ db.Sequelize = sequelize
 db.users = require("./usersModel")(sequelize, DataTypes)
 db.posts = require("./postsModel")(sequelize, DataTypes)
 
-// await sequelize.sync({force: true})
-// console.log("All models were synchronized successfully.")
+db.Sequelize.sync({force: false}).then(() => {
+  console.log("All models were synchronized successfully.")
+})
+
+db.users.hasMany(db.posts, {
+  foreignKey: "users_id",
+  as: "posts",
+})
+
+db.posts.belongsTo(db.users, {
+  foreignKey: "users_id",
+  as: "users",
+})
 
 module.exports = db

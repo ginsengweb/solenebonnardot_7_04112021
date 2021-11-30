@@ -1,16 +1,7 @@
 const {Model} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
-  class Posts extends Model {
-    static associate({Users}) {
-      Posts.belongsToMany(Users, {
-        foreignKey: {
-          type: DataTypes.INTEGER,
-        },
-        allowNull: false,
-      })
-    }
-  }
-  Posts.init(
+  const Posts = sequelize.define(
+    "posts",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -20,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       text_content: {type: DataTypes.STRING, allowNull: true},
       media_content: {type: DataTypes.STRING, allowNull: true},
+      // users_id: {type: DataTypes.INTEGER, allowNull: false},
+
+      // createdAt: {type: DataTypes.DATE, allowNull: true},
     },
     {
       sequelize,

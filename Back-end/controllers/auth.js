@@ -13,6 +13,9 @@ module.exports.inscription = async (req, res) => {
   }
   const user = await User.create(userInfo)
   res.status(200).json({
+    prenom: user.prenom,
+    nom: user.nom,
+    email: user.email,
     user: user.id,
     token: jwt.sign({userId: user.id}, "SECRET_TOKEN", {
       expiresIn: "24h",

@@ -1,15 +1,9 @@
 const {Model} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
-    static associate({Posts}) {
-      Users.hasMany(Posts, {
-        onDelete: "cascade",
-      })
-    }
-  }
-  Users.init(
+  const Users = sequelize.define(
+    "users",
     {
-      user_id: {
+      id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,

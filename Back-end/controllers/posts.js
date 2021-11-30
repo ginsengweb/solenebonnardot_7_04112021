@@ -21,6 +21,7 @@ const {Op} = require("sequelize")
 // const token = require("../middlewares/auth")
 const db = require("../models")
 const fs = require("fs")
+const {users} = require("../models")
 
 const Post = db.posts
 const User = db.users
@@ -39,6 +40,7 @@ module.exports.getAllPosts = async (req, res) => {
     })
   }
 }
+
 //
 //     const posts = await Post.findAll({
 //       attributes: ["text_content", "media_content", "createdAt"],
