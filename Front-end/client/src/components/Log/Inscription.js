@@ -24,18 +24,10 @@ const Inscription = () => {
         email,
         password,
       },
-      // header: {
-      //   "Authorization": "TOKEN",
-      // },
-      // ======> NE PAS LE METTRE ICI CA SERA POUR LES ROUTES QUI DOIVENT ETRE PROTGEE
     })
       .then(res => {
         console.log(res) // DANS LA R2PONSE ON A LE TOKEN
         localStorage.setItem("Token", res.data.token)
-        // const toRedirect = link => {
-        //   navigate(link)
-        // }
-        // SecuredConnexion()
         navigate("/posts")
       })
       .catch(err => {

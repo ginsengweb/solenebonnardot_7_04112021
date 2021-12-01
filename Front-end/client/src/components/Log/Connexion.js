@@ -18,14 +18,10 @@ const Connexion = () => {
         email,
         password,
       },
-      header: {
-        "Authorisation": "TOKEN",
-      },
     })
       .then(res => {
         let token = JSON.stringify(res.data)
         localStorage.setItem("Token", token)
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token
         const toRedirect = link => {
           navigate(link)
         }
@@ -34,9 +30,9 @@ const Connexion = () => {
           emailError.innerHTML = res.data.errors.email
           passwordError.innerHTML = res.data.errors.password
         } else {
-          console.log(token)
           console.log(res)
-          console.log(localStorage)
+          console.log(res.data)
+          console.log(res.data.token)
         }
       })
       .catch(err => {

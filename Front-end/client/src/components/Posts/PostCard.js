@@ -10,7 +10,7 @@ const Card = props => {
       {/* <div className="data-header">
             <ul>
                 {/* <li>{post.author}</li> */}
-      {/* <li>{posts.updatedAt}</li> */}
+      <li>{post.updatedAt}</li>
       {/* </ul> */}
       {/* </div> */}
       <div className="data-container">
