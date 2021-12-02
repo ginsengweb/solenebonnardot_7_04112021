@@ -1,6 +1,4 @@
 const {Op} = require("sequelize")
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// des que j'envoie le token dan sle local sotrage, c le back qui verifier si le token est ok et l'id user a partir du token et is id est le meme est ok Toute est dans le bakc, rien dans le front
 const token = require("../middlewares/auth")
 const db = require("../models")
 const fs = require("fs")
