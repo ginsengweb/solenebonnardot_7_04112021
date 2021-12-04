@@ -5,17 +5,16 @@ const Card = props => {
   const {post} = props
 
   return (
-    // <div>Card</div>
     <li className="card">
-      {/* <div className="data-header">
-            <ul>
-                {/* <li>{post.author}</li> */}
-      {/* <li>{post.updatedAt}</li> */}
-      {/* </ul> */}
-      {/* </div> */}
+      <div className="data-header">
+        <h1>
+          Votre collègue {post.users.prenom} {post.users.nom} a publié le{" "}
+          {post.createdAt}
+        </h1>
+      </div>
       <div className="data-container">
         <p className="textcontent">{post.text_content}</p>
-        {/* <img src={posts.media_content}/> */}
+        {/* <img src={post.media_content} /> */}
       </div>
     </li>
   )

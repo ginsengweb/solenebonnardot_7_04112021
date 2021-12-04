@@ -11,7 +11,16 @@ const getAllPosts = async (req, res) => {
     Post.findAll({
       attributes: ["text_content", "media_content", "createdAt", "users_id"],
       order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: db.users,
+          as: "users",
+          attributes: ["prenom", "nom", "id"],
+        },
+      ],
     }).then(posts => {
+      console.log(res.body)
+      console.log(posts.body)
       res.json(posts)
     })
   } catch (error) {
@@ -22,55 +31,30 @@ const getAllPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-  const userId = token.getUserId(req)
-  let imageUrl
+  console.log(req.body)
+  const user_id = req.body.user_id
+  console.log(user_id)
   try {
-    const user = await db.User.findOne({
+    const user = await User.findOne({
       attributes: ["nom", "prenom"],
-      where: {id: userId},
+      where: {id: user_id},
     })
     if (user !== null) {
-      if (req.file) {
-        imageUrl = `${req.protocol}://${req.get("host")}/api/upload/${
-          req.file.filename
-        }`
-      } else {
-        imageUrl = null
-      }
-      const post = await db.Post.create({
-        include: [
-          {
-            model: db.User,
-            attributes: ["nom", "prenom"],
-          },
-        ],
+      const post = await Post.create({
+        users_id: user_id,
         text_content: req.body.text_content,
         media_content: req.body.media_content,
       })
-
-      res.status(201).json({post: post, messageRetour: "Votre post est ajouté"})
+      res.status(201).json({post: post, réponse: "Votre post est ajouté"})
     } else {
-      res.status(400).send({error: "Erreur "})
+      res.status(400).json({réponse: "L'utilisateur n'existe pas"})
     }
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})
   }
 }
-const updatePost = async (req, res) => {
-  let id = req.params.id
-  const post = await Post.update(req.body, {where: {id: id}})
-  res.status(200).send(post)
-}
-
-const deletePost = async (req, res) => {
-  let id = req.params.id
-  await Post.destroy({where: {id: id}})
-  res.status(200).send("Votre post a bien été supprimé")
-}
 
 module.exports = {
   getAllPosts,
   createPost,
-  updatePost,
-  deletePost,
 }

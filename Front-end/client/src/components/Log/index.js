@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import Inscription from "./Inscription"
 import Connexion from "./Connexion"
+// import InputValidation from "./InputValidation"
 
 const Log = () => {
   const [inscriptionModal, setInscriptionModal] = useState(true)
@@ -15,6 +16,7 @@ const Log = () => {
       setConnexionModal(true)
     }
   }
+  localStorage.clear()
 
   return (
     <div className="connection-form">
@@ -30,6 +32,9 @@ const Log = () => {
         {inscriptionModal && <Inscription />}
         {connexionModal && <Connexion />}
       </div>
+      {/* <div className="test">
+        <InputValidation>input validation ici</InputValidation>
+      </div> */}
     </div>
   )
 }

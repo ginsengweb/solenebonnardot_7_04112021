@@ -1,12 +1,12 @@
-import Log from "../components/Log"
+import SecuredConnection from "../components/Log/SecuredConnection"
+import UpdateProfil from "../components/Profil/UpdateProfil"
 
 const Profil = () => {
+  SecuredConnection()
+
   return (
     <div className="profil-page">
-      <h1>UPDATE PAGE</h1>) : (
-      <div className="log-container">
-        <Log inscription={true} connexion={false} />
-      </div>
+      <UpdateProfil></UpdateProfil>
     </div>
   )
 }

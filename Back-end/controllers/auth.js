@@ -8,16 +8,18 @@ const User = db.users
 module.exports.inscription = async (req, res) => {
   const hash = await bcrypt.hash(req.body.password, 10)
   let userInfo = {
+    prenom: req.body.prenom,
+    nom: req.body.nom,
     email: req.body.email,
     password: hash,
   }
   const user = await User.create(userInfo)
   res.status(200).json({
+    user_id: user.id,
     prenom: user.prenom,
     nom: user.nom,
     email: user.email,
-    user: user.id,
-    token: jwt.sign({userId: user.id}, `secretToken`, {
+    token: jwt.sign({users_id: user.id}, `secretToken`, {
       expiresIn: "24h",
     }),
   })
@@ -34,15 +36,23 @@ module.exports.connexion = async (req, res) => {
       const match = await bcrypt.compare(req.body.password, user.password)
       if (match) {
         return res.status(401).json({error: "Mot de passe incorrect !"})
-      } else {
-        const Token = {
-          id: user.id,
-          token: jwt.sign({id: user.id}, `secretToken`, {
-            expiresIn: "24h",
-          }),
-        }
-        res.status(200).json(Token)
+        // } else {
+        // const Token = {
+        //   id: user.id,
+        //   token: jwt.sign({id: user.id}, `secretToken`, {
+        //     expiresIn: "24h",
+        //   }),
       }
+      res.status(200).json({
+        prenom: user.prenom,
+        nom: user.nom,
+        email: user.email,
+        user_id: user.id,
+        token: jwt.sign({users_id: user.id}, `secretToken`, {
+          expiresIn: "24h",
+        }),
+      })
+      // }
     }
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})

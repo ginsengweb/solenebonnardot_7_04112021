@@ -1,39 +1,38 @@
-import React, {useState} from "react"
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
+import {useForm} from "react-hook-form"
+
+axios.defaults.baseURL = "http://localhost:4200/api/auth"
+// créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded"
 
 const Connexion = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm()
+
   const navigate = useNavigate()
 
-  const handleConnexion = e => {
-    const emailError = document.querySelector(".email.error")
-    const passwordError = document.querySelector(".password.error")
-    e.preventDefault()
+  const onSubmit = data => {
+    console.log(data)
     axios({
       method: "POST",
-      url: `http://localhost:4200/api/auth/connexion`,
+      url: `/connexion`,
       data: {
-        email,
-        password,
+        email: data.email,
+        password: data.password,
       },
     })
       .then(res => {
-        let token = JSON.stringify(res.data)
+        let token = res.data.token
+        let userInfo = JSON.stringify(res.data)
+        console.log(token + userInfo)
         localStorage.setItem("Token", token)
-        const toRedirect = link => {
-          navigate(link)
-        }
-        toRedirect("/posts")
-        if (res.data.errors) {
-          emailError.innerHTML = res.data.errors.email
-          passwordError.innerHTML = res.data.errors.password
-        } else {
-          console.log(res)
-          console.log(res.data)
-          console.log(res.data.token)
-        }
+        localStorage.setItem("userInfo", userInfo)
+        navigate("/posts")
       })
       .catch(err => {
         console.log(err)
@@ -42,30 +41,37 @@ const Connexion = () => {
 
   return (
     <div>
-      <form action="" onSubmit={handleConnexion} id="inscription-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email">Email</label>
         <br />
         <input
           type="email"
-          name="email"
-          id="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          {...register("email", {
+            required: true,
+            message: "Vous devez entrer une adresse mail valide",
+          })}
         />
+        {errors.email && <span>{errors.email.message}</span>}
         <br />
         <label htmlFor="password">Mot de passe</label>
         <br />
         <input
           type="password"
-          name="password"
-          id="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          {...register("password", {
+            required: true,
+            pattern: {
+              value: /^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,64})$/,
+              message:
+                "Votre mot de passe doit contenir au moins 6 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
+            },
+          })}
         />
+        {errors.password && <span>{errors.password.message}</span>}
         <br />
-        <input type="submit" value="Je me connecte" />
+        <input type="submit" value="Je m'inscris" />
       </form>
     </div>
   )
 }
+
 export default Connexion

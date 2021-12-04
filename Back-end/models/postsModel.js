@@ -1,3 +1,4 @@
+"use strict"
 const {Model} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   const Posts = sequelize.define(
@@ -11,9 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       text_content: {type: DataTypes.STRING, allowNull: true},
       media_content: {type: DataTypes.STRING, allowNull: true},
-      // users_id: {type: DataTypes.INTEGER, allowNull: false},
-
-      // createdAt: {type: DataTypes.DATE, allowNull: true},
+      users_id: {type: DataTypes.INTEGER, allowNull: false},
     },
     {
       sequelize,

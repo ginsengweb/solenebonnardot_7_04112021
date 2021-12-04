@@ -1,7 +1,6 @@
-import React, {useState} from "react"
 import axios from "axios"
-import SecuredConnexion from "./SecuredConnection"
 import {useNavigate} from "react-router-dom"
+import {useForm} from "react-hook-form"
 
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
@@ -9,25 +8,32 @@ axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
 const Inscription = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm()
 
   const navigate = useNavigate()
-  const handleInscription = e => {
-    e.preventDefault()
-    const emailError = document.querySelector(".email.error")
-    const passwordError = document.querySelector(".password.error")
+
+  const onSubmit = data => {
+    console.log(data)
     axios({
       method: "POST",
       url: `/inscription`,
       data: {
-        email,
-        password,
+        prenom: data.prenom,
+        nom: data.nom,
+        email: data.email,
+        password: data.password,
       },
     })
       .then(res => {
-        console.log(res) // DANS LA R2PONSE ON A LE TOKEN
-        localStorage.setItem("Token", res.data.token)
+        let token = res.data.token
+        let userInfo = JSON.stringify(res.data)
+        console.log(token + userInfo)
+        localStorage.setItem("Token", token)
+        localStorage.setItem("userInfo", userInfo)
         navigate("/posts")
       })
       .catch(err => {
@@ -36,31 +42,68 @@ const Inscription = () => {
   }
 
   return (
-    // AJOUTER NOM ET PRENOM
     <div>
-      <form action="" onSubmit={handleInscription} id="inscription-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="prenom">Prenom</label>
+        <br />
+        <input
+          {...register("prenom", {
+            required: true,
+            minLength: {
+              value: 2,
+              message: "Vous devez entrer au moins 2 caractères",
+            },
+            maxLength: {
+              value: 15,
+              message: "Vous devez entrer au maximum 15 caractères",
+            },
+          })}
+        />
+        {errors.prenom && <span>{errors.prenom.message}</span>}
+        <br />
+        <label htmlFor="nom">Nom</label>
+        <br />
+        <input
+          type="text"
+          {...register("nom", {
+            required: true,
+            minLength: {
+              value: 2,
+              message: "Vous devez entrer au moins 2 caractères",
+            },
+            maxLength: {
+              value: 15,
+              message: "Vous devez entrer au maximum 15 caractères",
+            },
+          })}
+        />
+        {errors.nom && <span>{errors.nom.message}</span>}
+        <br />
         <label htmlFor="email">Email</label>
         <br />
         <input
           type="email"
-          name="email"
-          id="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          {...register("email", {
+            required: true,
+            message: "Vous devez entrer une adresse mail valide",
+          })}
         />
-        <div className="email error">E-mail invalide</div>
+        {errors.email && <span>{errors.email.message}</span>}
         <br />
         <label htmlFor="password">Mot de passe</label>
         <br />
         <input
           type="password"
-          name="password"
-          id="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          {...register("password", {
+            required: true,
+            pattern: {
+              value: /^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,64})$/,
+              message:
+                "Votre mot de passe doit contenir au moins 6 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
+            },
+          })}
         />
-        <div className="passwordConfirmError"></div>
-        {/* ici mettre une condition true ou false (state=....) */}
+        {errors.password && <span>{errors.password.message}</span>}
         <br />
         <input type="submit" value="Je m'inscris" />
       </form>
