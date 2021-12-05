@@ -9,11 +9,15 @@ import Accueil from "../src/Pages/Accueil"
 import Profil from "./Pages/Profil"
 import Posts from "./Pages/Posts"
 import "./styles/main.css"
+import Nav from "./components/Navigation"
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <div className="navigation">
+          <Nav></Nav>
+        </div>
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/profil" element={<Profil />} />

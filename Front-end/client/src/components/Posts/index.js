@@ -1,19 +1,17 @@
 import React, {useState, useEffect} from "react"
 import axios, {Axios} from "axios"
 import Card from "../Posts/PostCard"
-import SecuredConnexion from "../Log/SecuredConnection"
 import PostForm from "./PostForm"
 
 const GetAllPosts = () => {
-  SecuredConnexion()
   const [data, setData] = useState([])
-  const SECRET_TOKEN = localStorage.getItem("Token")
-  console.log(SECRET_TOKEN)
+  const Token = localStorage.getItem("Token")
+  console.log(Token)
   useEffect(() => {
     axios
       .get("http://localhost:4200/api/posts", {
         headers: {
-          "x-access-token": localStorage.getItem("Token"),
+          "x-access-token": Token,
         },
       })
       .then(res => {
@@ -28,12 +26,12 @@ const GetAllPosts = () => {
       <div className="welcome">
         <h1>Bienvenue {prenomUser}</h1>
       </div>
-      <div className="post-form">
+      <div>
         <PostForm></PostForm>
       </div>
       <ul className="posts-list">
         {data.map(posts => (
-          <Card post={posts} key="posts.name" />
+          <Card className="post-card" post={posts} key="posts.name" />
         ))}
       </ul>
     </div>

@@ -1,6 +1,7 @@
 // VARIABLES
 $dark-blue: rgb(0, 1, 80);
-$red: rgb(224, 75, 75);
+$transparent-blue: rgba(152, 148, 189, 0.336);
+$red: rgb(226, 48, 48);
 $textshadow: rgb(255, 255, 255) 1px 2px 1px;
 // MIXINS
 @mixin community($fontsize) {

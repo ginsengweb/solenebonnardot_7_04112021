@@ -32,9 +32,6 @@ const Log = () => {
         {inscriptionModal && <Inscription />}
         {connexionModal && <Connexion />}
       </div>
-      {/* <div className="test">
-        <InputValidation>input validation ici</InputValidation>
-      </div> */}
     </div>
   )
 }

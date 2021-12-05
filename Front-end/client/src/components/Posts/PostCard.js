@@ -7,10 +7,10 @@ const Card = props => {
   return (
     <li className="card">
       <div className="data-header">
-        <h1>
+        <h3>
           Votre collègue {post.users.prenom} {post.users.nom} a publié le{" "}
           {post.createdAt}
-        </h1>
+        </h3>
       </div>
       <div className="data-container">
         <p className="textcontent">{post.text_content}</p>

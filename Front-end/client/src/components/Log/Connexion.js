@@ -41,7 +41,7 @@ const Connexion = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="accueil-form">
         <label htmlFor="email">Email</label>
         <br />
         <input
@@ -68,7 +68,7 @@ const Connexion = () => {
         />
         {errors.password && <span>{errors.password.message}</span>}
         <br />
-        <input type="submit" value="Je m'inscris" />
+        <input type="submit" value="Je me connecte" />
       </form>
     </div>
   )

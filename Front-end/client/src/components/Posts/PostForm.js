@@ -37,33 +37,39 @@ const PostForm = () => {
   }
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="text_content">
-          Que souhaitez-vous partager avec vos collègues aujourd'hui ?
-        </label>
-        <br />
-        <input
-          {...register("text_content", {
-            minLength: {
-              value: 10,
-              message: "Vous devez créer un post de 1à caractères au minimum !",
-            },
-            maxLength: {
-              value: 350,
-              message: "Vous êtes au maximum de caractères pour ce post !",
-            },
-          })}
-        />
-        {errors.text_content && <span>{errors.text_content.message}</span>}
-        <br />
-        <label htmlFor="media_content">
-          <img src="../../public/images/reseau-social.jpg" alt="add-media" />
-        </label>
-        <br />
-        <input {...register("media_content", {})} />
-        <br />
+      <form onSubmit={handleSubmit(onSubmit)} className="post-form">
+        <div className="column1">
+          <label htmlFor="text_content" className="text_content_label">
+            Que souhaitez-vous partager avec vos collègues aujourd'hui ?
+          </label>
+          <br />
+          <input
+            type="text"
+            className="text_content_input"
+            {...register("text_content", {
+              minLength: {
+                value: 10,
+                message:
+                  "Vous devez créer un post de 10 caractères au minimum !",
+              },
+              maxLength: {
+                value: 350,
+                message: "Vous êtes au maximum de caractères pour ce post !",
+              },
+            })}
+          />
+          {errors.text_content && <span>{errors.text_content.message}</span>}
+        </div>
+        <div className="column2">
+          <img src={"/images/video.png"} alt="logo" className="add_media" />
+          <br />
 
-        <input type="submit" value="Partager mon post" />
+          <input
+            className="post-button"
+            type="submit"
+            value="Partager mon post"
+          />
+        </div>
       </form>
     </div>
   )

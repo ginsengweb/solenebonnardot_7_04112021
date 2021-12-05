@@ -1,41 +1,58 @@
-.navbar {
-  background-color: $dark-blue;
-  height: 150px;
+.nav {
+  background-color: $transparent-blue;
   display: flex;
+  // flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 30px;
+  // border-bottom: 2px solid rgb(118, 118, 165);
+  box-shadow: 0 2px 4px rgb(82, 80, 100);
   &-logo {
     display: flex;
     flex-direction: row;
-    a {
+    &-link {
       display: flex;
-      justify-content: space-around;
       align-items: center;
-      padding: 20px 20px 0 20px;
-      .logo {
-        width: 50%;
-        max-width: 300px;
+      justify-content: space-around;
+      text-decoration: none;
+      &-img {
+        width: 230px;
+        margin-right: 8px;
       }
-      .community {
-        @include community(1.7rem);
+      &-community {
+        @include community(2rem);
+        text-shadow: $textshadow;
         margin-bottom: 5px;
-        width: 45%;
+        // width: 45%;
       }
     }
   }
-  .auth {
+  &-links {
+    list-style: none;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 0;
-    &-inscription {
-      list-style: none;
-      &-button {
-        @include button();
-        color: white;
-      }
-    }
-    &-connexion {
-      &-button {
-        @include button();
+    margin-right: 30px;
+    li {
+      img {
+        width: 40px;
+        margin: 20px;
       }
     }
   }
 }
+// .auth {
+//   display: flex;
+//   justify-content: space-around;
+//   margin-bottom: 0;
+//   &-inscription {
+//     list-style: none;
+//     &-button {
+//       @include button();
+//       color: white;
+//     }
+//   }
+//   &-connexion {
+//     &-button {
+//       @include button();
+//     }
+//   }
+// }

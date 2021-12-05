@@ -1,0 +1,30 @@
+.accueil-form {
+  border: solid, black, 2px;
+  border-radius: 5px;
+  background-color: rgb(0, 8, 119);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+
+  margin: 30px auto;
+  padding: 40px;
+  input {
+    width: 60%;
+    padding: 3px 5px;
+    margin: 10px auto;
+    box-shadow: none;
+    border: none;
+    // color: white;
+    border-radius: 5px;
+  }
+  label {
+    width: 30%;
+    padding: 3px 5px;
+    box-shadow: none;
+    border: none;
+    background-color: rgba(0, 0, 255, 0);
+    color: rgb(255, 255, 255);
+  }
+}
