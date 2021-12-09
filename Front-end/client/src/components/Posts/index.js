@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react"
 import axios, {Axios} from "axios"
-import Card from "../Posts/PostCard"
+import PostsCard from "../Posts/PostsCard"
 import PostForm from "./PostForm"
+import SecuredConnexion from "../Log/SecuredConnection.js"
 
 const GetAllPosts = () => {
   const [data, setData] = useState([])
@@ -20,6 +21,11 @@ const GetAllPosts = () => {
       })
   }, [])
   const prenomUser = JSON.parse(localStorage.getItem("userInfo")).prenom
+  const addnewpost = post => {
+    setData(data.concat(post))
+    console.log(post)
+    console.log(data)
+  }
 
   return (
     <div className="posts">
@@ -27,11 +33,13 @@ const GetAllPosts = () => {
         <h1>Bienvenue {prenomUser}</h1>
       </div>
       <div>
-        <PostForm></PostForm>
+        <PostForm addPost={addnewpost}></PostForm>
+        {/* envoeyr en props une fonction que jedéfini ici et qui ajoute le nouveau post à la liste des ancienss posts */}
       </div>
       <ul className="posts-list">
+        {console.log(data)}
         {data.map(posts => (
-          <Card className="post-card" post={posts} key="posts.name" />
+          <PostsCard className="post-card" post={posts} key="posts.name" />
         ))}
       </ul>
     </div>

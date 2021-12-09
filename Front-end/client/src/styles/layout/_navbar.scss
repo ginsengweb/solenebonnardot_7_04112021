@@ -1,7 +1,7 @@
 .nav {
   background-color: $transparent-blue;
   display: flex;
-  // flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 5px 30px;
@@ -13,7 +13,7 @@
     &-link {
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
       text-decoration: none;
       &-img {
         width: 230px;
@@ -30,29 +30,21 @@
   &-links {
     list-style: none;
     display: flex;
-    margin-right: 30px;
+    margin: 0 auto;
     li {
+      margin: 5px 30px;
       img {
-        width: 40px;
-        margin: 20px;
+        width: 60px;
+        // margin: 20px;
+      }
+      h3 {
+        text-align: center;
       }
     }
   }
 }
-// .auth {
-//   display: flex;
-//   justify-content: space-around;
-//   margin-bottom: 0;
-//   &-inscription {
-//     list-style: none;
-//     &-button {
-//       @include button();
-//       color: white;
-//     }
-//   }
-//   &-connexion {
-//     &-button {
-//       @include button();
-//     }
-//   }
-// }
+.securedConnection {
+  width: 50%;
+  text-align: center;
+  margin: 50px auto;
+}

@@ -15,9 +15,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div className="navigation">
-          <Nav></Nav>
-        </div>
+        {/* <div className="navigation"> */}
+        {/* <Nav></Nav> */}
+        {/* </div> */}
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/profil" element={<Profil />} />

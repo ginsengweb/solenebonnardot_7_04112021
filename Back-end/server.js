@@ -18,10 +18,12 @@ app.use(express.urlencoded({extended: true}))
 const authRouter = require("./routes/auth")
 const postsRouter = require("./routes/posts")
 const usersRouter = require("./routes/users")
+const commentsRouter = require("./routes/comments")
 
 app.use("/api/auth", authRouter)
 app.use("/api/posts", postsRouter)
 app.use("/api/user", usersRouter)
+app.use("/api/comment", commentsRouter)
 
 // port
 const PORT = process.env.PORT || 4200

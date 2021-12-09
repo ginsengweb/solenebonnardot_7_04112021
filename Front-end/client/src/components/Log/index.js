@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import Inscription from "./Inscription"
 import Connexion from "./Connexion"
-// import InputValidation from "./InputValidation"
 
 const Log = () => {
   const [inscriptionModal, setInscriptionModal] = useState(true)

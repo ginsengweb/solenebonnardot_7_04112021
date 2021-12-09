@@ -4,7 +4,11 @@
 @import "./layout/_navbar";
 @import "./layout/_footer";
 @import "./layout/_card";
+@import "./layout/icones";
+@import "./layout/errorMessage";
 
 @import "./pages/_accueil";
 @import "./pages/accueilForm";
 @import "./pages/posts";
+@import "./pages/comments";
+@import "./pages/profil";

@@ -5,9 +5,7 @@ import {useForm} from "react-hook-form"
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
-const PostForm = () => {
-  const user_id = JSON.parse(localStorage.getItem("userInfo")).user_id
-  console.log(user_id)
+const PostForm = props => {
   const {
     register,
     handleSubmit,
@@ -15,6 +13,7 @@ const PostForm = () => {
   } = useForm()
 
   const onSubmit = data => {
+    const user_id = JSON.parse(localStorage.getItem("userInfo")).id
     console.log(data)
     axios({
       method: "POST",
@@ -29,7 +28,8 @@ const PostForm = () => {
       },
     })
       .then(res => {
-        console.log(res)
+        console.log(res.data.post)
+        props.addPost(res.data.post)
       })
       .catch(err => {
         console.log(err)
@@ -44,7 +44,7 @@ const PostForm = () => {
           </label>
           <br />
           <input
-            type="text"
+            type="textarea"
             className="text_content_input"
             {...register("text_content", {
               minLength: {
@@ -64,11 +64,7 @@ const PostForm = () => {
           <img src={"/images/video.png"} alt="logo" className="add_media" />
           <br />
 
-          <input
-            className="post-button"
-            type="submit"
-            value="Partager mon post"
-          />
+          <input className="post-button" type="submit" value="Poster" />
         </div>
       </form>
     </div>

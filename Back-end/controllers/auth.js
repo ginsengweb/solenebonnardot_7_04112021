@@ -13,46 +13,52 @@ module.exports.inscription = async (req, res) => {
     email: req.body.email,
     password: hash,
   }
-  const user = await User.create(userInfo)
-  res.status(200).json({
-    user_id: user.id,
-    prenom: user.prenom,
-    nom: user.nom,
-    email: user.email,
-    token: jwt.sign({users_id: user.id}, `secretToken`, {
-      expiresIn: "24h",
-    }),
-  })
+  try {
+    const user = await User.findOne({
+      where: {email: req.body.email},
+    })
+    if (user) {
+      return res.status(403).send({error: "Vous êtes déjà inscrit"})
+    } else {
+      const user = await User.create(userInfo)
+      res.status(200).json({
+        id: user.id,
+        prenom: user.prenom,
+        nom: user.nom,
+        email: user.email,
+        token: jwt.sign({users_id: user.id}, `secretToken`, {
+          expiresIn: "24h",
+        }),
+      })
+    }
+  } catch (error) {
+    return res.status(500).send({error: "Erreur serveur"})
+  }
 }
 
 module.exports.connexion = async (req, res) => {
+  console.log(req.body.email)
   try {
     const user = await User.findOne({
-      email: req.body.email,
+      where: {email: req.body.email},
     })
     if (user == null) {
       return res.status(403).send({error: "Vous n'êtes pas inscrit"})
     } else {
       const match = await bcrypt.compare(req.body.password, user.password)
-      if (match) {
+      if (!match) {
         return res.status(401).json({error: "Mot de passe incorrect !"})
-        // } else {
-        // const Token = {
-        //   id: user.id,
-        //   token: jwt.sign({id: user.id}, `secretToken`, {
-        //     expiresIn: "24h",
-        //   }),
+      } else {
+        res.status(200).json({
+          id: user.id,
+          prenom: user.prenom,
+          nom: user.nom,
+          email: user.email,
+          token: jwt.sign({users_id: user.id}, `secretToken`, {
+            expiresIn: "24h",
+          }),
+        })
       }
-      res.status(200).json({
-        prenom: user.prenom,
-        nom: user.nom,
-        email: user.email,
-        user_id: user.id,
-        token: jwt.sign({users_id: user.id}, `secretToken`, {
-          expiresIn: "24h",
-        }),
-      })
-      // }
     }
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})

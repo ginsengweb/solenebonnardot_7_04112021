@@ -1,13 +1,15 @@
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
+import {useState} from "react"
 
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
-
 const Connexion = () => {
+  const [errorData, setErrorData] = useState("")
+
   const {
     register,
     handleSubmit,
@@ -36,6 +38,7 @@ const Connexion = () => {
       })
       .catch(err => {
         console.log(err)
+        setErrorData("Vous n'êtes pas inscrit !")
       })
   }
 
@@ -69,6 +72,7 @@ const Connexion = () => {
         {errors.password && <span>{errors.password.message}</span>}
         <br />
         <input type="submit" value="Je me connecte" />
+        <span className="error-message">{errorData}</span>
       </form>
     </div>
   )

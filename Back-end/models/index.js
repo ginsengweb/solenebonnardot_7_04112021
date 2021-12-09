@@ -28,6 +28,7 @@ db.Sequelize = sequelize
 
 db.users = require("./usersModel")(sequelize, DataTypes)
 db.posts = require("./postsModel")(sequelize, DataTypes)
+db.comments = require("./commentsModel")(sequelize, DataTypes)
 
 db.Sequelize.sync({force: false}).then(() => {
   console.log("All models were synchronized successfully.")
@@ -39,6 +40,25 @@ db.users.hasMany(db.posts, {
 })
 
 db.posts.belongsTo(db.users, {
+  foreignKey: "users_id",
+  as: "users",
+})
+
+db.posts.hasMany(db.comments, {
+  foreignKey: "post_id",
+  as: "comments",
+})
+
+db.comments.belongsTo(db.posts, {
+  foreignKey: "post_id",
+  as: "posts",
+})
+db.users.hasMany(db.comments, {
+  foreignKey: "users_id",
+  as: "comments",
+})
+
+db.comments.belongsTo(db.users, {
   foreignKey: "users_id",
   as: "users",
 })

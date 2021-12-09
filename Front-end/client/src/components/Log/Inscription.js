@@ -1,6 +1,7 @@
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
+import {useState} from "react"
 
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
@@ -8,6 +9,8 @@ axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
 const Inscription = () => {
+  const [errorData, setErrorData] = useState("")
+
   const {
     register,
     handleSubmit,
@@ -36,14 +39,17 @@ const Inscription = () => {
         localStorage.setItem("userInfo", userInfo)
         navigate("/posts")
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log(error)
+        setErrorData(
+          "Vous êtes déjà inscrit à cette adresse mail, connectez-vous !"
+        )
       })
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="accueil-form">
         <label htmlFor="prenom">Prenom</label>
         <br />
         <input
@@ -106,6 +112,7 @@ const Inscription = () => {
         {errors.password && <span>{errors.password.message}</span>}
         <br />
         <input type="submit" value="Je m'inscris" />
+        <span className="error-message">{errorData}</span>{" "}
       </form>
     </div>
   )

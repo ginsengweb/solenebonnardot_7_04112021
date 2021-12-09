@@ -1,0 +1,33 @@
+.user {
+  background-color: rgb(255, 179, 179);
+  padding: 20px;
+  &-welcome {
+    text-align: center;
+    h1 {
+      margin: 20px auto;
+      @include community(1.9rem);
+      text-shadow: 1px 1.5px 0px black;
+    }
+  }
+  &-form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    min-width: 450px;
+    margin: 0 auto;
+    &-label {
+      width: 130px;
+      @include text(1rem);
+      font-weight: bold;
+      color: rgba(5, 5, 5, 0.842);
+      margin: 5px;
+    }
+    &-input {
+      background-color: rgba(210, 105, 30, 0);
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.315);
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+    }
+  }
+}

@@ -1,12 +1,18 @@
-import SecuredConnection from "../components/Log/SecuredConnection"
+import SecuredConnexion from "../components/Log/SecuredConnection"
+import Nav from "../components/Navigation"
 import UpdateProfil from "../components/Profil/UpdateProfil"
 
 const Profil = () => {
-  SecuredConnection()
-
   return (
-    <div className="profil-page">
-      <UpdateProfil></UpdateProfil>
+    <div>
+      <Nav />
+      <SecuredConnexion>
+        <div className="profil">
+          <div className="profil-container">
+            <UpdateProfil />
+          </div>
+        </div>
+      </SecuredConnexion>
     </div>
   )
 }

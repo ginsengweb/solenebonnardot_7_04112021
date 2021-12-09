@@ -1,9 +1,11 @@
 .connection-form {
   background-color: rgb(255, 215, 215);
-  margin: 30px 200px;
+  margin: 30px auto;
   padding: 40px;
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgb(161, 161, 161);
+  width: 50%;
+  min-width: 400px;
   .form-container {
     display: flex;
     flex-direction: column;
@@ -19,13 +21,12 @@
         padding: 10px 25px;
         border-radius: 30px;
         box-shadow: 2px 2px 2px rgb(100, 99, 99);
+        width: 120px;
+        text-align: center;
       }
     }
   }
 }
-.accueil {
-  position: absolute;
-  nav-logo-link-img {
-    position: absolute;
-  }
-}
+// .accueil {
+// background-image: src{"./images/bckimg.jpg"};
+// }
