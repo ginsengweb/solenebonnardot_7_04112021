@@ -37,7 +37,6 @@ module.exports.inscription = async (req, res) => {
 }
 
 module.exports.connexion = async (req, res) => {
-  console.log(req.body.email)
   try {
     const user = await User.findOne({
       where: {email: req.body.email},
@@ -54,6 +53,7 @@ module.exports.connexion = async (req, res) => {
           prenom: user.prenom,
           nom: user.nom,
           email: user.email,
+          admin: user.admin,
           token: jwt.sign({users_id: user.id}, `secretToken`, {
             expiresIn: "24h",
           }),

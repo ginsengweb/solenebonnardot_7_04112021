@@ -1,5 +1,5 @@
 "use strict"
-const {Model} = require("sequelize")
+const {Model, TINYINT} = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define(
     "users",
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      admin: {type: TINYINT(0), allowNull: true, default: 0},
     },
     {
       sequelize,

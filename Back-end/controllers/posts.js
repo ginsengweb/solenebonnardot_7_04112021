@@ -1,5 +1,5 @@
 const {Op} = require("sequelize")
-const token = require("../middlewares/auth")
+// const token = require("../middlewares/authToken")
 const db = require("../models")
 const fs = require("fs")
 const {users} = require("../models")
@@ -7,6 +7,7 @@ const {users} = require("../models")
 const Post = db.posts
 const User = db.users
 const Comments = db.comments
+
 const getAllPosts = async (req, res) => {
   try {
     Post.findAll({
@@ -81,6 +82,7 @@ const deletePost = async (req, res) => {
     const post_id = req.body.id
     console.log("postid:", post_id)
     const post = await Post.findOne({where: {id: req.body.id}})
+    console.log(post.users_id)
     if (post.media_content) {
       const filename = post.media_content.split("/images")[1]
       fs.unlink(`images/${filename}`, () => {

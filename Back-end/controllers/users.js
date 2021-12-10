@@ -49,17 +49,13 @@ const deleteUser = async (req, res) => {
   try {
     const user_id = req.body.id
     console.log("userid:", user_id)
-    const post = await User.findOne({where: {id: req.body.id}})
+    const user = await User.findOne({where: {id: req.body.id}})
     if (user.profile_picture) {
+      console.log("profilepicturelancé")
       const filename = user.profile_picture.split("/images")[1]
-      fs.unlink(`images/${filename}`, () => {
-        User.destroy({where: {id: req.body.id}})
-        res.status(200).json({message: "Utilisateur supprimé"})
-      })
-    } else {
-      User.destroy({where: {id: post.id}}, {truncate: true})
-      res.status(200).json({message: "Utilisateur supprimé"})
     }
+    User.destroy({where: {id: user.id}})
+    res.status(200).json({message: "Utilisateur supprimé"})
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})
   }

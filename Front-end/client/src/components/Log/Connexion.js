@@ -4,7 +4,6 @@ import {useForm} from "react-hook-form"
 import {useState} from "react"
 
 axios.defaults.baseURL = "http://localhost:4200/api/auth"
-// créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 const Connexion = () => {

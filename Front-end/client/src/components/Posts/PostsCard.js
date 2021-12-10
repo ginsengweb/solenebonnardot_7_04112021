@@ -15,12 +15,15 @@ const PostsCard = props => {
     setData(comments)
   }, [])
 
-  let users_id = JSON.parse(localStorage.getItem("userInfo")).id
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"))
+  let users_id = userInfo.id
+  let users_admin = userInfo.admin
+  console.log(users_admin)
   useEffect(() => {
-    if (post.users_id === users_id) {
+    if (post.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)
     }
-  }, [users_id, post.users_id])
+  }, [users_id, post.users_id, users_admin])
   const handleDelete = () => {
     console.log(post.id)
     axios({
@@ -31,6 +34,9 @@ const PostsCard = props => {
       },
       data: {
         id: post.id,
+        user_id: users_id,
+        admin: users_admin,
+        post_user_id: post.users_id,
       },
     })
       .then(res => {
@@ -61,7 +67,7 @@ const PostsCard = props => {
               <img
                 src={"/images/delete.png"}
                 alt="delete-comment"
-                className="delete-comment-img"
+                className="delete-img"
               />
             </button>
           )}

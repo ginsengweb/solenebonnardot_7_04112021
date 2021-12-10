@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const postCtrl = require("../controllers/posts")
-const auth = require("../middlewares/auth")
+const authToken = require("../middlewares/authToken")
+const authAdmin = require("../middlewares/authAdmin")
 
-router.post("/", auth, postCtrl.createPost)
-router.get("/", auth, postCtrl.getAllPosts)
-router.delete("/", auth, postCtrl.deletePost)
+router.post("/", authToken, postCtrl.createPost)
+router.get("/", authToken, postCtrl.getAllPosts)
+router.delete("/", authToken, authAdmin, postCtrl.deletePost)
 
 module.exports = router

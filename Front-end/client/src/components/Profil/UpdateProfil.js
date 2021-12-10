@@ -1,5 +1,6 @@
 import axios from "axios"
 import {useForm} from "react-hook-form"
+import DeleteProfil from "./DeleteProfil"
 
 // créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
 axios.defaults.headers.post["Content-Type"] =
@@ -144,6 +145,7 @@ const UpdateProfil = () => {
           />
         </div>
       </form>
+      <DeleteProfil />
     </div>
   )
 }

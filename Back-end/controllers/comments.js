@@ -1,5 +1,5 @@
 const {Op} = require("sequelize")
-const token = require("../middlewares/auth")
+// const token = require("../middlewares/authToken")
 const db = require("../models")
 const fs = require("fs")
 const {comments} = require("../models")
