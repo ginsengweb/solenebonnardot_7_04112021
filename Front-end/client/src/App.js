@@ -5,7 +5,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom"
-import Accueil from "../src/Pages/Accueil"
+import Accueil from "./Pages/Accueil"
 import Profil from "./Pages/Profil"
 import Posts from "./Pages/Posts"
 import "./styles/main.css"

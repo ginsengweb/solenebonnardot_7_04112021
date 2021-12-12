@@ -11,13 +11,7 @@ const Comments = db.comments
 const getAllPosts = async (req, res) => {
   try {
     Post.findAll({
-      attributes: [
-        "id",
-        "text_content",
-        "media_content",
-        "createdAt",
-        "users_id",
-      ],
+      attributes: ["id", "text_content", "imageUrl", "createdAt", "users_id"],
       order: [["createdAt", "DESC"]],
       include: [
         {
@@ -50,7 +44,8 @@ const createPost = async (req, res) => {
   console.log(req.body)
   const user_id = req.body.user_id
   console.log(user_id)
-
+  let imageUrl
+  console.log(req.file)
   try {
     const user = await User.findOne({
       attributes: ["nom", "prenom", "id"],
@@ -58,14 +53,14 @@ const createPost = async (req, res) => {
     })
     if (user !== null) {
       if (req.file) {
-        media_content = `htpp://localhost:4200/api/images/${req.file.filename}`
+        imageUrl = `http://localhost:4200/api/upload/${req.file.filename}`
       } else {
-        media_content = null
+        imageUrl = null
       }
       const post = await Post.create({
         users_id: user_id,
         text_content: req.body.text_content,
-        media_content: req.body.media_content,
+        imageUrl: imageUrl,
       })
       post.dataValues.users = user.dataValues
       console.log("log post", post)
@@ -83,8 +78,8 @@ const deletePost = async (req, res) => {
     console.log("postid:", post_id)
     const post = await Post.findOne({where: {id: req.body.id}})
     console.log(post.users_id)
-    if (post.media_content) {
-      const filename = post.media_content.split("/images")[1]
+    if (post.imageUrl) {
+      const filename = post.imageUrl.split("/images")[1]
       fs.unlink(`images/${filename}`, () => {
         Post.destroy({where: {id: req.body.id}})
         res.status(200).json({message: "Post supprimé"})

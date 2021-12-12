@@ -7,7 +7,7 @@ const CommentsCard = props => {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
   let users_admin = userInfo.admin
-  console.log(users_admin)
+  // console.log(users_admin)
   useEffect(() => {
     if (comments.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)

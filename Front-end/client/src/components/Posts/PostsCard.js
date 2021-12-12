@@ -26,6 +26,7 @@ const PostsCard = props => {
   }, [users_id, post.users_id, users_admin])
   const handleDelete = () => {
     console.log(post.id)
+    console.log("IMAGE", post.imageUrl)
     axios({
       method: "DELETE",
       url: "http://localhost:4200/api/posts",
@@ -46,6 +47,11 @@ const PostsCard = props => {
       .catch(err => {
         console.log(err)
       })
+  }
+  const addnewcomment = comment => {
+    setData([comment].concat(data))
+    console.log(comment)
+    console.log(data)
   }
   return (
     <li className="card">
@@ -74,7 +80,7 @@ const PostsCard = props => {
         </div>
         <div className="data-container">
           <p className="textcontent">{post.text_content}</p>
-          {/* <img src={post.media_content} /> */}
+          <img src={post.imageUrl} alt="post-imageurl" />
         </div>
         <div className="data-footer">
           <div className="comment-icone">
@@ -92,6 +98,7 @@ const PostsCard = props => {
             {showComments &&
               data.map(comments => (
                 <CommentsCard
+                  newcomment={addnewcomment}
                   className="comments-card"
                   comments={comments}
                   key="comments.name"

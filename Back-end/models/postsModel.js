@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       text_content: {type: DataTypes.STRING, allowNull: true},
-      media_content: {type: DataTypes.STRING, allowNull: true},
+      imageUrl: {type: DataTypes.STRING, allowNull: true},
       users_id: {type: DataTypes.INTEGER, allowNull: false},
     },
     {

@@ -1,6 +1,7 @@
 const multer = require("multer")
 
 const MIME_TYPES = {
+  // notre dictionnaire d'extensions
   "image/jpg": "jpg",
   "image/jpeg": "jpg",
   "image/png": "png",
@@ -10,7 +11,8 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "./images")
+    // destination des images
+    callback(null, "./upload")
   },
   filename: (req, file, callback) => {
     // nouveau nom du fichier image pour éviter les doublons
@@ -19,4 +21,4 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + "." + extension)
   },
 })
-module.exports = multer({storage: storage}).single("image") // stockage de l'image publiée
+module.exports = multer({storage: storage}).single("imageUrl") // stockage de l'image publiée

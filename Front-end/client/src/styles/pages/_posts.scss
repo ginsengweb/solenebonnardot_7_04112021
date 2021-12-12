@@ -9,6 +9,7 @@
   }
   .post-form {
     display: flex;
+    flex-wrap: wrap;
     width: 50%;
     min-width: 360px;
     justify-content: space-between;
@@ -37,10 +38,16 @@
     .column2 {
       width: 25%;
       justify-content: right;
-      .add_media {
-        margin: 50px 0 20px 50px;
-        width: 70px;
-        height: 70px;
+      label {
+        width: 30px;
+        img {
+          margin: 50px 0 20px 30px;
+          width: 70px;
+          height: 70px;
+        }
+      }
+      #imageUrl {
+        display: none;
       }
       .post-button {
         padding: 10px 20px;
@@ -89,5 +96,17 @@
         }
       }
     }
+  }
+}
+.preview-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(228, 203, 203);
+  border-radius: 3px;
+  border: 1px solid rgb(175, 175, 175);
+  img {
+    width: 100%;
+    border-radius: 3px;
   }
 }

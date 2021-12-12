@@ -19,10 +19,11 @@ const GetAllPosts = () => {
         setData(res.data)
         console.log(res.data)
       })
-  }, [])
+  }, [Token, setData])
   const prenomUser = JSON.parse(localStorage.getItem("userInfo")).prenom
   const addnewpost = post => {
-    setData(data.concat(post))
+    setData([post].concat(data))
+    window.location.reload()
     console.log(post)
     console.log(data)
   }

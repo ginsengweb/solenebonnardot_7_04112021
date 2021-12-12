@@ -228,6 +228,8 @@ footer .logofooter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   width: 50%;
   min-width: 360px;
   -webkit-box-pack: justify;
@@ -268,10 +270,18 @@ footer .logofooter {
           justify-content: right;
 }
 
-.posts .post-form .column2 .add_media {
-  margin: 50px 0 20px 50px;
+.posts .post-form .column2 label {
+  width: 30px;
+}
+
+.posts .post-form .column2 label img {
+  margin: 50px 0 20px 30px;
   width: 70px;
   height: 70px;
+}
+
+.posts .post-form .column2 #imageUrl {
+  display: none;
 }
 
 .posts .post-form .column2 .post-button {
@@ -326,6 +336,20 @@ footer .logofooter {
   width: 40px;
   height: 40px;
   margin-right: 10px;
+}
+
+.preview-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #e4cbcb;
+  border-radius: 3px;
+  border: 1px solid #afafaf;
+}
+
+.preview-container img {
+  width: 100%;
+  border-radius: 3px;
 }
 
 .comment-form {

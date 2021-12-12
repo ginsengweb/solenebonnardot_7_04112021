@@ -1,11 +1,11 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import axios from "axios"
 import {useForm} from "react-hook-form"
 
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
-const CommentForm = postId => {
+const CommentForm = (postId, newComment) => {
   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
   const {
     register,
@@ -27,12 +27,18 @@ const CommentForm = postId => {
     })
       .then(res => {
         console.log(res.data.comment)
-        // props.addComment(res.data.comment)
+        newComment(res.data.comment)
       })
       .catch(err => {
         console.log(err)
       })
   }
+  // useEffect(
+  //   newComment => {
+  //     setNewComment(newComment)
+  //   },
+  //   [newComment]
+  // )
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="comment-form">
