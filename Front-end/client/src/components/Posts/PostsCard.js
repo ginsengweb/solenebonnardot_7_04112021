@@ -13,7 +13,7 @@ const PostsCard = props => {
   console.log(comments)
   useEffect(() => {
     setData(comments)
-  }, [])
+  }, [comments])
 
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id

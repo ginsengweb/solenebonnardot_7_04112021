@@ -2,9 +2,6 @@ import axios from "axios"
 import {useState} from "react"
 import {useForm} from "react-hook-form"
 
-// créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded"
 const PostForm = props => {
   const {
     register,
@@ -13,31 +10,38 @@ const PostForm = props => {
   } = useForm()
 
   const [postPicture, setPostPicture] = useState(null)
-  const [file, setFile] = useState()
+  const [file, setFile] = useState(false)
+
   const handlePicture = e => {
     setPostPicture(URL.createObjectURL(e.target.files[0]))
     setFile(e.target.files[0])
   }
-  const onSubmit = data => {
+  // const handlePost = async () => {
+  //   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
+  //   const data = new FormData()
+  //   data.append("user_id", "text_content", "file")
+  //   data.append("file", file)
+  //   console.log(data)
+  // }
+
+  const onSubmit = async () => {
     // if (!data.text_content) {
     //   console.log("Veuillez entrer un message")
     // } else {
-    // const data = new FormData()
+    // console.log(data)
     const user_id = JSON.parse(localStorage.getItem("userInfo")).id
+    const data = new FormData()
+    data.append({"user_id": user_id, "text_content": data.text_content})
+    data.append("file", file)
     console.log(data)
-    axios({
+    await axios({
       method: "POST",
       url: "http://localhost:4200/api/posts",
-      // formData: file,
       headers: {
-        // "Content-type": "multipart/form-data",
+        "Content-type": "multipart/form-data",
         "x-access-token": localStorage.getItem("Token"),
       },
-      data: {
-        user_id: user_id,
-        text_content: data.text_content,
-        // imageUrl: postPicture,
-      },
+      data,
     })
       .then(res => {
         console.log(res.data.post)
@@ -83,8 +87,14 @@ const PostForm = props => {
             accept=".jpg, .jpeg, .png"
             onChange={e => handlePicture(e)}
           />
-          <input className="post-button" type="submit" value="Poster" />
+          <input
+            className="post-button"
+            type="submit"
+            value="Poster"
+            // onClick={handlePost}
+          />
         </div>
+
         <div className="preview-container">
           <img src={postPicture} alt="" />
         </div>
