@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const path = require("path")
 
 const app = express()
 
@@ -19,14 +20,12 @@ const authRouter = require("./routes/auth")
 const postsRouter = require("./routes/posts")
 const usersRouter = require("./routes/users")
 const commentsRouter = require("./routes/comments")
-const path = require("path/posix")
 
 app.use("/api/auth", authRouter)
 app.use("/api/posts", postsRouter)
 app.use("/api/user", usersRouter)
 app.use("/api/comment", commentsRouter)
-app.use("api/upload", express.static(path.join(__dirname, "upload")))
-// express.static(path.jo)
+app.use("/api/upload", express.static(path.join(__dirname, "upload")))
 
 // port
 const PORT = process.env.PORT || 4200

@@ -7,14 +7,12 @@ const CommentsCard = props => {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
   let users_admin = userInfo.admin
-  // console.log(users_admin)
   useEffect(() => {
     if (comments.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)
     }
   }, [users_id, comments.users_id, users_admin])
   const handleDelete = () => {
-    console.log(comments.id)
     axios({
       method: "DELETE",
       url: "http://localhost:4200/api/comment",
@@ -29,7 +27,6 @@ const CommentsCard = props => {
       },
     })
       .then(res => {
-        console.log(res.data)
         props.DeletePost(res.data)
       })
       .catch(err => {

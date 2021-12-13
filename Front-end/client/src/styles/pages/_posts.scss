@@ -82,6 +82,14 @@
           p {
             margin: 15px 10px;
           }
+          .post-image {
+            max-width: 95%;
+            border-radius: 3px;
+            margin: 5px auto;
+            padding: 5px;
+            border: 1px solid rgb(196, 196, 196);
+            background-color: rgb(255, 255, 255);
+          }
         }
         &-footer {
           .comment-icone {

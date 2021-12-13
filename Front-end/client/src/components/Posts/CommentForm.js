@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form"
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
-const CommentForm = (postId, newComment) => {
+const CommentForm = (postId, props) => {
   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
   const {
     register,
@@ -27,7 +27,7 @@ const CommentForm = (postId, newComment) => {
     })
       .then(res => {
         console.log(res.data.comment)
-        newComment(res.data.comment)
+        props.addnewcomment(res.data.comment)
       })
       .catch(err => {
         console.log(err)

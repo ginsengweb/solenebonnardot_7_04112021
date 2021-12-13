@@ -12,33 +12,31 @@ const PostForm = props => {
   const [postPicture, setPostPicture] = useState(null)
   const [file, setFile] = useState(false)
 
+  const [inputText, setInputText] = useState("")
+
   const handlePicture = e => {
     setPostPicture(URL.createObjectURL(e.target.files[0]))
     setFile(e.target.files[0])
   }
-  // const handlePost = async () => {
-  //   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
-  //   const data = new FormData()
-  //   data.append("user_id", "text_content", "file")
-  //   data.append("file", file)
-  //   console.log(data)
-  // }
-
-  const onSubmit = async () => {
+  const handleInputText = e => {
+    setInputText(e.target)
+  }
+  const onSubmit = async content => {
     // if (!data.text_content) {
     //   console.log("Veuillez entrer un message")
     // } else {
-    // console.log(data)
+    console.log(content.text_content)
     const user_id = JSON.parse(localStorage.getItem("userInfo")).id
     const data = new FormData()
-    data.append({"user_id": user_id, "text_content": data.text_content})
+    data.append("user_id", user_id)
+    data.append("text_content", content.text_content)
     data.append("file", file)
     console.log(data)
     await axios({
       method: "POST",
       url: "http://localhost:4200/api/posts",
       headers: {
-        "Content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
         "x-access-token": localStorage.getItem("Token"),
       },
       data,
@@ -60,6 +58,8 @@ const PostForm = props => {
           </label>
           <br />
           <input
+            placeholder={inputText}
+            onChange={e => handleInputText(e)}
             type="textarea"
             className="text_content_input"
             {...register("text_content", {

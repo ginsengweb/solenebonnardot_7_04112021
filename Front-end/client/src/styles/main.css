@@ -323,6 +323,15 @@ footer .logofooter {
   margin: 15px 10px;
 }
 
+.posts .posts-list .card .data-container .post-image {
+  max-width: 95%;
+  border-radius: 3px;
+  margin: 5px auto;
+  padding: 5px;
+  border: 1px solid #c4c4c4;
+  background-color: white;
+}
+
 .posts .posts-list .card .data-footer .comment-icone {
   display: -webkit-box;
   display: -ms-flexbox;

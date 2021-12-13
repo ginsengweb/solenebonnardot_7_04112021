@@ -3,7 +3,7 @@ const multer = require("multer")
 const MIME_TYPES = {
   // notre dictionnaire d'extensions
   "image/jpg": "jpg",
-  "image/jpeg": "jpg",
+  "image/jpeg": "jpeg",
   "image/png": "png",
   "image.gif": "gif",
   "image.webp": "webp",
@@ -21,4 +21,4 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + "." + extension)
   },
 })
-module.exports = multer({storage: storage}).single("imageUrl") // stockage de l'image publiée
+module.exports = multer({storage: storage}).single("file") // stockage de l'image publiée

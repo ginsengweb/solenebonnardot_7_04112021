@@ -10,7 +10,6 @@ const PostsCard = props => {
   const [data, setData] = useState([])
   const [showComments, setShowComments] = useState(false)
   const comments = post.comments
-  console.log(comments)
   useEffect(() => {
     setData(comments)
   }, [comments])
@@ -18,15 +17,12 @@ const PostsCard = props => {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
   let users_admin = userInfo.admin
-  console.log(users_admin)
   useEffect(() => {
     if (post.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)
     }
   }, [users_id, post.users_id, users_admin])
   const handleDelete = () => {
-    console.log(post.id)
-    console.log("IMAGE", post.imageUrl)
     axios({
       method: "DELETE",
       url: "http://localhost:4200/api/posts",
@@ -41,17 +37,14 @@ const PostsCard = props => {
       },
     })
       .then(res => {
-        console.log(res.data)
         props.DeletePost(res.data)
       })
       .catch(err => {
         console.log(err)
       })
   }
-  const addnewcomment = comment => {
-    setData([comment].concat(data))
-    console.log(comment)
-    console.log(data)
+  const addnewcomment = () => {
+    window.location.reload()
   }
   return (
     <li className="card">
@@ -80,7 +73,7 @@ const PostsCard = props => {
         </div>
         <div className="data-container">
           <p className="textcontent">{post.text_content}</p>
-          <img src={post.imageUrl} alt="post-imageurl" />
+          <img src={post.imageUrl} alt="post-imageurl" className="post-image" />
         </div>
         <div className="data-footer">
           <div className="comment-icone">
@@ -89,7 +82,6 @@ const PostsCard = props => {
               src="./images/chat.png"
               alt="chat"
             />
-            {console.log(post.id)}
             <CommentForm postId={post.id} />
           </div>
         </div>
