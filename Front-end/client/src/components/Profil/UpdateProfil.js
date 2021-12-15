@@ -34,6 +34,7 @@ const UpdateProfil = () => {
       headers: {
         "x-access-token": localStorage.getItem("Token"),
       },
+      params: {userId: id},
       data: {
         id,
         prenom,
@@ -139,7 +140,7 @@ const UpdateProfil = () => {
           />
           <br />
           <input
-            className="post-button"
+            className="post-button button"
             type="submit"
             value="Modifier mon profil"
           />

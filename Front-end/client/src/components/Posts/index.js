@@ -6,19 +6,23 @@ import PostForm from "./PostForm"
 const GetAllPosts = () => {
   const [data, setData] = useState([])
   const Token = localStorage.getItem("Token")
+  const userId = JSON.parse(localStorage.getItem("userInfo")).id
+  console.log(userId)
   useEffect(() => {
     axios
-      .get("http://localhost:4200/api/posts", {
+      .get("http://localhost:4200/api/posts/", {
         headers: {
           "x-access-token": Token,
         },
+        params: {userId: userId},
       })
       .then(res => {
+        console.log(res.user)
         setData(res.data)
       })
-  }, [Token, setData])
+  }, [Token, setData, userId])
   const prenomUser = JSON.parse(localStorage.getItem("userInfo")).prenom
-  const addnewpost = post => {
+  const addnewpost = () => {
     window.location.reload()
   }
 

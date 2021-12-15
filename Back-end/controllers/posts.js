@@ -29,8 +29,6 @@ const getAllPosts = async (req, res) => {
         },
       ],
     }).then(posts => {
-      console.log(res.body)
-      console.log(posts.body)
       res.json(posts)
     })
   } catch (error) {
@@ -41,9 +39,9 @@ const getAllPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const user_id = req.body.user_id
-  console.log(user_id)
+  // console.log(user_id)
   let imageUrl
   console.log(req.file)
   try {

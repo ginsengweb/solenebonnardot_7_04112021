@@ -2,17 +2,20 @@ const jwt = require("jsonwebtoken")
 
 module.exports = (req, res, next) => {
   const token = req.headers["x-access-token"]
-  console.log(token)
-  jwt.verify(token, `secretToken`, (err, decoded) => {
+  const decodedToken = jwt.verify(token, `secretToken`)
+  const tokenId = decodedToken.userId
+  const userId = req.param("userId")
+  console.log(userId, tokenId)
+  if (userId == tokenId || req.body.users_id == tokenId) {
+    console.log("authok")
+    next()
+  } else {
     if (!token) {
-      console.log("no token")
+      throw "Il n'y a aucun token à vérifier !"
     }
     if (err) {
       res.json(err + "authentication failed because of wrong token")
       console.log("erreur")
-    } else {
-      console.log(res + "authentication ok !")
-      next()
     }
-  })
+  }
 }

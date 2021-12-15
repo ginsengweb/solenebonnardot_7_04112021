@@ -21,10 +21,10 @@ const Log = () => {
     <div className="connection-form">
       <div className="form-container">
         <ul>
-          <li onClick={handleModals} id="inscription">
+          <li onClick={handleModals} id="inscription" className="button">
             Je m'inscris
           </li>
-          <li onClick={handleModals} id="connexion">
+          <li onClick={handleModals} id="connexion" className="button">
             Je me connecte
           </li>
         </ul>

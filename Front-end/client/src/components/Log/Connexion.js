@@ -70,7 +70,7 @@ const Connexion = () => {
         />
         {errors.password && <span>{errors.password.message}</span>}
         <br />
-        <input type="submit" value="Je me connecte" />
+        <input type="submit" value="Je me connecte" className="button" />
         <span className="error-message">{errorData}</span>
       </form>
     </div>

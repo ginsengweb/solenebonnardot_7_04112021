@@ -111,7 +111,7 @@ const Inscription = () => {
         />
         {errors.password && <span>{errors.password.message}</span>}
         <br />
-        <input type="submit" value="Je m'inscris" />
+        <input type="submit" value="Je m'inscris" className="button" />
         <span className="error-message">{errorData}</span>{" "}
       </form>
     </div>

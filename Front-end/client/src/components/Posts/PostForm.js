@@ -12,42 +12,38 @@ const PostForm = props => {
   const [postPicture, setPostPicture] = useState(null)
   const [file, setFile] = useState(false)
 
-  const [inputText, setInputText] = useState("")
-
   const handlePicture = e => {
     setPostPicture(URL.createObjectURL(e.target.files[0]))
     setFile(e.target.files[0])
   }
-  const handleInputText = e => {
-    setInputText(e.target)
-  }
   const onSubmit = async content => {
-    // if (!data.text_content) {
-    //   console.log("Veuillez entrer un message")
-    // } else {
-    console.log(content.text_content)
-    const user_id = JSON.parse(localStorage.getItem("userInfo")).id
-    const data = new FormData()
-    data.append("user_id", user_id)
-    data.append("text_content", content.text_content)
-    data.append("file", file)
-    console.log(data)
-    await axios({
-      method: "POST",
-      url: "http://localhost:4200/api/posts",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "x-access-token": localStorage.getItem("Token"),
-      },
-      data,
-    })
-      .then(res => {
-        console.log(res.data.post)
-        props.addPost(res.data.post)
+    if (!content.text_content) {
+      console.log("Veuillez entrer un message")
+    } else {
+      const user_id = JSON.parse(localStorage.getItem("userInfo")).id
+      const data = new FormData()
+      data.append("user_id", user_id)
+      data.append("text_content", content.text_content)
+      data.append("file", file)
+      console.log(data)
+      await axios({
+        method: "POST",
+        url: "http://localhost:4200/api/posts",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-access-token": localStorage.getItem("Token"),
+        },
+        params: {userId: user_id},
+        data,
       })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          console.log(res.data.post)
+          props.addPost(res.data.post)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
   return (
     <div>
@@ -57,9 +53,8 @@ const PostForm = props => {
             Que souhaitez-vous partager avec vos collègues aujourd'hui ?
           </label>
           <br />
-          <input
-            placeholder={inputText}
-            onChange={e => handleInputText(e)}
+          <textarea
+            row={2}
             type="textarea"
             className="text_content_input"
             {...register("text_content", {
@@ -78,7 +73,11 @@ const PostForm = props => {
         </div>
         <div className="column2">
           <label for="imageUrl">
-            <img src={"/images/video.png"} alt="logo" className="add_media" />
+            <img
+              src={"/images/video.png"}
+              alt="logo"
+              className="add_media, button"
+            />
           </label>
           <input
             type="file"
@@ -87,12 +86,7 @@ const PostForm = props => {
             accept=".jpg, .jpeg, .png"
             onChange={e => handlePicture(e)}
           />
-          <input
-            className="post-button"
-            type="submit"
-            value="Poster"
-            // onClick={handlePost}
-          />
+          <input className="post-button button" type="submit" value="Poster" />
         </div>
 
         <div className="preview-container">

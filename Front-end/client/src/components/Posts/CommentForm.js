@@ -5,7 +5,8 @@ import {useForm} from "react-hook-form"
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded"
 
-const CommentForm = (postId, props) => {
+const CommentForm = props => {
+  const [message, setMessage] = useState()
   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
   const {
     register,
@@ -21,31 +22,27 @@ const CommentForm = (postId, props) => {
       },
       data: {
         users_id: user_id,
-        post_id: postId.postId,
+        post_id: props.postId,
         content: data.content,
       },
     })
       .then(res => {
-        console.log(res.data.comment)
-        props.addnewcomment(res.data.comment)
+        console.log("res data comment", res.data.comment)
+        props.newComment(res.data.comment)
+        setMessage("")
       })
       .catch(err => {
         console.log(err)
       })
   }
-  // useEffect(
-  //   newComment => {
-  //     setNewComment(newComment)
-  //   },
-  //   [newComment]
-  // )
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="comment-form">
-        <input
-          type="text"
+        <textarea
           placeholder="Ecrivez un commentaire ici !"
           className="content_input"
+          value={message}
+          onChange={e => setMessage(e.target.value)}
           {...register("content", {
             minLength: {
               value: 10,
@@ -60,7 +57,7 @@ const CommentForm = (postId, props) => {
         />
         {errors.content && <span>{errors.content.message}</span>}
         <input
-          className="comment-button"
+          className="comment-button button"
           type="image"
           src="./images/send.png"
           alt="send"

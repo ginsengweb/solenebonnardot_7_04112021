@@ -11,6 +11,7 @@ const DeleteProfil = () => {
       headers: {
         "x-access-token": localStorage.getItem("Token"),
       },
+      params: {userId},
       data: {
         id: userId,
       },

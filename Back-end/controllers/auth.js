@@ -26,7 +26,7 @@ module.exports.inscription = async (req, res) => {
         prenom: user.prenom,
         nom: user.nom,
         email: user.email,
-        token: jwt.sign({users_id: user.id}, `secretToken`, {
+        token: jwt.sign({userId: user.id}, `secretToken`, {
           expiresIn: "24h",
         }),
       })
@@ -54,7 +54,7 @@ module.exports.connexion = async (req, res) => {
           nom: user.nom,
           email: user.email,
           admin: user.admin,
-          token: jwt.sign({users_id: user.id}, `secretToken`, {
+          token: jwt.sign({userId: user.id}, `secretToken`, {
             expiresIn: "24h",
           }),
         })

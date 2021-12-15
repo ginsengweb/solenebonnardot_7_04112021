@@ -3,3 +3,8 @@
   padding: 0;
   @include text(1rem);
 }
+button:hover,
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.09);
+}

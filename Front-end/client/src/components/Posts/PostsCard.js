@@ -2,17 +2,19 @@ import axios from "axios"
 import React, {useState, useEffect} from "react"
 import CommentForm from "./CommentForm"
 import CommentsCard from "./CommentsCard"
-// Permet d'afficher le temps relatif par rapport à la date actuelle, et en français
-
+import dayjs from "dayjs"
+require("dayjs/locale/fr")
+const relativeTime = require("dayjs/plugin/relativeTime")
+dayjs.extend(relativeTime)
 const PostsCard = props => {
   const {post} = props
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
-  const [data, setData] = useState([])
+  const [dataComment, setDataComment] = useState([])
   const [showComments, setShowComments] = useState(false)
   const comments = post.comments
   useEffect(() => {
-    setData(comments)
-  }, [comments])
+    setDataComment(comments)
+  }, [])
 
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
@@ -31,7 +33,7 @@ const PostsCard = props => {
       },
       data: {
         id: post.id,
-        user_id: users_id,
+        users_id: users_id,
         admin: users_admin,
         post_user_id: post.users_id,
       },
@@ -43,20 +45,25 @@ const PostsCard = props => {
         console.log(err)
       })
   }
-  const addnewcomment = () => {
-    window.location.reload()
+  const addNewComment = newComment => {
+    console.log(newComment)
+    setDataComment(dataComment.concat(newComment))
+  }
+  const deleteComment = commentToDelete => {
+    console.log(commentToDelete)
+    setDataComment(dataComment.shi(commentToDelete))
   }
   return (
     <li className="card">
       <div className="data">
         <div className="data-header">
           <h3>
-            Votre collègue {post.users.prenom} {post.users.nom} a publié le{" "}
-            {post.createdAt}
+            Votre collègue {post.users.prenom} {post.users.nom} a publié{" "}
+            {dayjs(post.createdAt).locale("fr").fromNow()}
           </h3>
           {showDeleteIcon && (
             <button
-              className="comment-card-crud"
+              className="comment-card-crud delete-button"
               onClick={() => {
                 if (window.confirm("Voulez-vous supprimer ce post ?")) {
                   handleDelete()
@@ -73,7 +80,13 @@ const PostsCard = props => {
         </div>
         <div className="data-container">
           <p className="textcontent">{post.text_content}</p>
-          <img src={post.imageUrl} alt="post-imageurl" className="post-image" />
+          {post.imageUrl && (
+            <img
+              src={post.imageUrl}
+              alt="post-imageurl"
+              className="post-image"
+            />
+          )}
         </div>
         <div className="data-footer">
           <div className="comment-icone">
@@ -81,19 +94,20 @@ const PostsCard = props => {
               onClick={() => setShowComments(!showComments)}
               src="./images/chat.png"
               alt="chat"
+              className="button"
             />
-            <CommentForm postId={post.id} />
+            <CommentForm postId={post.id} newComment={addNewComment} />
           </div>
         </div>
         <div className="comments">
           <ul className="comments-list">
             {showComments &&
-              data.map(comments => (
+              dataComment.map(comments => (
                 <CommentsCard
-                  newcomment={addnewcomment}
                   className="comments-card"
                   comments={comments}
                   key="comments.name"
+                  commentToDelete={deleteComment}
                 />
               ))}
           </ul>

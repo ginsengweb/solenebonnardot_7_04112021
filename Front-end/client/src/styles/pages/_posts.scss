@@ -28,11 +28,12 @@
         // width: 100%;
       }
       .text_content_input {
-        width: 100%;
+        width: 95%;
         height: 150px;
         border-radius: 15px 15px 3px 15px;
         border: 1px solid rgb(148, 148, 148);
         margin: 20px 0;
+        padding: 8px;
       }
     }
     .column2 {
@@ -70,6 +71,7 @@
       .data {
         &-header {
           display: flex;
+          justify-content: space-between;
           h3 {
             color: rgb(92, 92, 92);
             @include text(0.8rem);
@@ -92,6 +94,7 @@
           }
         }
         &-footer {
+          margin-top: 20px;
           .comment-icone {
             display: flex;
             justify-content: space-between;
@@ -107,12 +110,10 @@
   }
 }
 .preview-container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: rgb(228, 203, 203);
-  border-radius: 3px;
-  border: 1px solid rgb(175, 175, 175);
+  width: 60%;
+  // margin: 0 auto;
+  // padding: 20px;
+  min-width: 270px;
   img {
     width: 100%;
     border-radius: 3px;

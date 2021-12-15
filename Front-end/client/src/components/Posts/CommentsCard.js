@@ -1,7 +1,13 @@
 import axios from "axios"
 import {useEffect, useState} from "react"
+import dayjs from "dayjs"
+
+require("dayjs/locale/fr")
+const relativeTime = require("dayjs/plugin/relativeTime")
+dayjs.extend(relativeTime)
 
 const CommentsCard = props => {
+  console.log(props.commentToDelete)
   const {comments} = props
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
@@ -19,29 +25,34 @@ const CommentsCard = props => {
       headers: {
         "x-access-token": localStorage.getItem("Token"),
       },
+      params: {userId: users_id},
       data: {
+        users_id,
         id: comments.id,
-        user_id: users_id,
         admin: users_admin,
-        post_user_id: comments.users_id,
       },
     })
       .then(res => {
-        props.DeletePost(res.data)
+        console.log(comments)
+        props.deleteComment(comments)
+        // trouver le tableau des commentaires .shift(comments)
       })
       .catch(err => {
         console.log(err)
       })
   }
+  console.log(comments)
 
   return (
     <li className="comments-card">
       <div className="comments-card-data">
         <div className="comments-card-data-header">
-          <h3>
-            Votre collègue {comments.users.prenom} {comments.users.nom} a
-            commenté le {comments.createdAt}
-          </h3>
+          {comments.users !== undefined && (
+            <h3>
+              Votre collègue {comments.users.prenom} {comments.users.nom} a
+              commenté {dayjs(comments.createdAt).locale("fr").fromNow()}
+            </h3>
+          )}
           {showDeleteIcon && (
             <button
               className="comment-card-crud"
