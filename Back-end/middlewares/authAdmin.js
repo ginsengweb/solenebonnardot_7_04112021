@@ -6,6 +6,6 @@ module.exports = async (req, res, next) => {
   if (user_id === author_user_id || admin === 1) {
     next()
   } else {
-    res.send(401).json("Vous n'êtes pas authorisé à supprimer ce post")
+    res.send(401).json("Vous n'êtes pas authorisé à réaliser cette action")
   }
 }

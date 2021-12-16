@@ -2,17 +2,21 @@ import React, {useEffect, useState} from "react"
 import axios from "axios"
 import {useForm} from "react-hook-form"
 
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded"
-
 const CommentForm = props => {
   const [message, setMessage] = useState()
+
+  useEffect(() => {
+    setMessage()
+  }, [message])
+
   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
+
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm()
+
   const onSubmit = data => {
     axios({
       method: "POST",
@@ -35,6 +39,7 @@ const CommentForm = props => {
         console.log(err)
       })
   }
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="comment-form">

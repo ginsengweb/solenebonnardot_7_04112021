@@ -1,65 +1,54 @@
-const {Op} = require("sequelize")
 const db = require("../models")
+
+//  import model DB
 const User = db.users
-const Posts = db.posts
 
+// ********* MODIFY *************
 const updateUser = async (req, res) => {
-  const id = req.body.id
-  console.log("voici l'id", id)
   try {
-    let user = await User.findOne({where: {id: id}})
-
-    console.log("voici le user", user.dataValues)
-    if (req.body.profilePicture) {
-      user.profile_picture = req.body.profilePicture
-    }
+    let user = await User.findOne({where: {id: req.body.id}})
+    console.log("User trouvé : ", user.dataValues)
     if (req.body.email) {
       user.email = req.body.email
-    }
-    if (req.body.mini_bio) {
-      user.mini_bio = req.body.mini_bio
-
-      console.log("pas d eminibio", user.mini_bio)
+      console.log("Ancien email : ", user.email)
     }
     if (req.body.prenom) {
       user.prenom = req.body.prenom
-
-      console.log("voici le prénom", user.prenom)
+      console.log("Ancien prénom : ", user.prenom)
     }
     if (req.body.nom) {
       user.nom = req.body.nom
-      console.log("voici le nom", user.nom)
+      console.log("Ancien nom : ", user.nom)
     }
     try {
       user.save({})
-
-      console.log("i am new user", user)
+      console.log("New userInfo : ", user)
       res.status(200).json({
         user: user,
         messageRetour: "Votre profil a bien été modifié",
       })
     } catch (error) {
-      return res.status(500).send({error: "Erreur dans le .save"})
+      return res
+        .status(500)
+        .send({error: "Erreur lors de la mise à jour de votre proifl"})
     }
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})
   }
 }
+
+// ******************* DELETE **********************
 const deleteUser = async (req, res) => {
   try {
-    const user_id = req.body.id
-    console.log("userid:", user_id)
     const user = await User.findOne({where: {id: req.body.id}})
-    if (user.profile_picture) {
-      console.log("profilepicturelancé")
-      const filename = user.profile_picture.split("/images")[1]
-    }
+    console.log("User to delete : ", user.dataValues)
     User.destroy({where: {id: user.id}})
     res.status(200).json({message: "Utilisateur supprimé"})
   } catch (error) {
     return res.status(500).send({error: "Erreur serveur"})
   }
 }
+
 module.exports = {
   updateUser,
   deleteUser,

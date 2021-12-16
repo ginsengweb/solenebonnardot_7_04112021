@@ -50,15 +50,6 @@
       #imageUrl {
         display: none;
       }
-      .post-button {
-        padding: 10px 20px;
-        margin: 2px 20px;
-        background-color: $red;
-        color: white;
-        border-radius: 25px;
-        border: none;
-        box-shadow: 0.5px 1px 3px rgb(95, 95, 95);
-      }
     }
   }
   .posts-list {
@@ -80,12 +71,15 @@
           }
         }
         &-container {
-          // background-color: cadetblue;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           p {
             margin: 15px 10px;
           }
           .post-image {
             max-width: 95%;
+            max-height: 350px;
             border-radius: 3px;
             margin: 5px auto;
             padding: 5px;

@@ -2,22 +2,26 @@ import axios from "axios"
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
 
+//  DAYJS
 require("dayjs/locale/fr")
 const relativeTime = require("dayjs/plugin/relativeTime")
 dayjs.extend(relativeTime)
 
 const CommentsCard = props => {
-  console.log(props.commentToDelete)
   const {comments} = props
+
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
+
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
   let users_admin = userInfo.admin
+
   useEffect(() => {
     if (comments.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)
     }
   }, [users_id, comments.users_id, users_admin])
+
   const handleDelete = () => {
     axios({
       method: "DELETE",
@@ -34,14 +38,12 @@ const CommentsCard = props => {
     })
       .then(res => {
         console.log(comments)
-        props.deleteComment(comments)
-        // trouver le tableau des commentaires .shift(comments)
+        props.commentToDelete(comments)
       })
       .catch(err => {
         console.log(err)
       })
   }
-  console.log(comments)
 
   return (
     <li className="comments-card">

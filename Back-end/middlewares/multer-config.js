@@ -1,7 +1,7 @@
 const multer = require("multer")
 
 const MIME_TYPES = {
-  // notre dictionnaire d'extensions
+  // Dictionnaire d'extensions
   "image/jpg": "jpg",
   "image/jpeg": "jpeg",
   "image/png": "png",
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     callback(null, "./upload")
   },
   filename: (req, file, callback) => {
-    // nouveau nom du fichier image pour éviter les doublons
+    // nouveau nom du fichier image
     const name = file.originalname.replace(/\.[^/.]+$/, "")
     const extension = MIME_TYPES[file.mimetype]
     callback(null, name + Date.now() + "." + extension)

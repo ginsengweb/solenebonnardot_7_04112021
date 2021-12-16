@@ -1,11 +1,11 @@
 const express = require("express")
 const cors = require("cors")
 const path = require("path")
-
 const app = express()
+require("dotenv").config({path: "./config/.env"})
 
 let corsOptions = {
-  origin: `http://localhost:3000`,
+  origin: `http://${process.env.HOST}:${process.env.CLIENT_PORT}`,
   allowHeader: ["Content-Type", "Authorization"],
   credentials: true,
 }
@@ -28,7 +28,7 @@ app.use("/api/comment", commentsRouter)
 app.use("/api/upload", express.static(path.join(__dirname, "upload")))
 
 // port
-const PORT = process.env.PORT || 4200
+const PORT = process.env.SERVER_PORT || 4200
 
 //server
 app.listen(PORT, () => {

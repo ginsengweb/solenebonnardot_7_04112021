@@ -14,11 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       prenom: {type: DataTypes.STRING(100), allowNull: true},
       email: {type: DataTypes.STRING, allowNull: false, unique: true},
       password: {type: DataTypes.STRING, allowNull: false, unique: true},
-      profile_picture: {type: DataTypes.BLOB, allowNull: true}, //string cf posts model
-      mini_bio: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
       admin: {type: TINYINT(0), allowNull: true, default: 0},
     },
     {

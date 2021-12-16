@@ -11,26 +11,38 @@ const PostForm = props => {
 
   const [postPicture, setPostPicture] = useState(null)
   const [file, setFile] = useState(false)
+  const [emptyMessage, setEmptyMesssage] = useState(null)
 
+  //  Récuépraiton des infos img
   const handlePicture = e => {
     setPostPicture(URL.createObjectURL(e.target.files[0]))
     setFile(e.target.files[0])
   }
+
   const onSubmit = async content => {
-    if (!content.text_content) {
-      console.log("Veuillez entrer un message")
-    } else {
+    // Text ou image pour poster
+    if (content.text_content || file) {
+      // Message erreur false
+      setEmptyMesssage(false)
       const user_id = JSON.parse(localStorage.getItem("userInfo")).id
-      const data = new FormData()
-      data.append("user_id", user_id)
-      data.append("text_content", content.text_content)
-      data.append("file", file)
-      console.log(data)
+      let data
+      // si image, requête type formData
+      if (file) {
+        axios.defaults.headers.post["Content-Type"] = "multipart/form-data"
+        data = new FormData()
+        data.append("user_id", user_id)
+        data.append("text_content", content.text_content)
+        data.append("file", file)
+      } else {
+        axios.defaults.headers.post["Content-Type"] =
+          "application/x-www-form-urlencoded"
+        data = {user_id: user_id, text_content: content.text_content}
+      }
+      // POST
       await axios({
         method: "POST",
         url: "http://localhost:4200/api/posts",
         headers: {
-          "Content-Type": "multipart/form-data",
           "x-access-token": localStorage.getItem("Token"),
         },
         params: {userId: user_id},
@@ -43,6 +55,8 @@ const PostForm = props => {
         .catch(err => {
           console.log(err)
         })
+    } else {
+      setEmptyMesssage(true)
     }
   }
   return (
@@ -64,7 +78,7 @@ const PostForm = props => {
                   "Vous devez créer un post de 10 caractères au minimum !",
               },
               maxLength: {
-                value: 350,
+                value: 10000,
                 message: "Vous êtes au maximum de caractères pour ce post !",
               },
             })}
@@ -90,6 +104,9 @@ const PostForm = props => {
         </div>
 
         <div className="preview-container">
+          <p>
+            {emptyMessage && "Veuillez publiez un message et/ou une image !"}
+          </p>
           <img src={postPicture} alt="" />
         </div>
       </form>

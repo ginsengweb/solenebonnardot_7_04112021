@@ -1,0 +1,10 @@
+//General
+HOST: "your-local-host",
+
+// Database
+USER: "you-user-root",
+PASSWORD: "your-password",
+DB: "you-db-name",
+
+//Token
+TOKEN: "secretToken"

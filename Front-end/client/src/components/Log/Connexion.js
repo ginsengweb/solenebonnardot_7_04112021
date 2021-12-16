@@ -3,9 +3,6 @@ import {useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
 import {useState} from "react"
 
-axios.defaults.baseURL = "http://localhost:4200/api/auth"
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded"
 const Connexion = () => {
   const [errorData, setErrorData] = useState("")
 
@@ -18,10 +15,9 @@ const Connexion = () => {
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    console.log(data)
     axios({
       method: "POST",
-      url: `/connexion`,
+      url: `http://localhost:4200/api/auth/connexion`,
       data: {
         email: data.email,
         password: data.password,

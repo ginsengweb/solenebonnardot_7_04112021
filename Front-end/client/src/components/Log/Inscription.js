@@ -3,11 +3,6 @@ import {useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
 import {useState} from "react"
 
-axios.defaults.baseURL = "http://localhost:4200/api/auth"
-// créer un fichier séparé pour mettre cet URL puis on l'exporte pour l'utiliser (si changement plus tard c plus propre)
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded"
-
 const Inscription = () => {
   const [errorData, setErrorData] = useState("")
 
@@ -20,10 +15,9 @@ const Inscription = () => {
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    console.log(data)
     axios({
       method: "POST",
-      url: `/inscription`,
+      url: `http://localhost:4200/api/auth/inscription`,
       data: {
         prenom: data.prenom,
         nom: data.nom,
@@ -34,7 +28,6 @@ const Inscription = () => {
       .then(res => {
         let token = res.data.token
         let userInfo = JSON.stringify(res.data)
-        console.log(token + userInfo)
         localStorage.setItem("Token", token)
         localStorage.setItem("userInfo", userInfo)
         navigate("/posts")

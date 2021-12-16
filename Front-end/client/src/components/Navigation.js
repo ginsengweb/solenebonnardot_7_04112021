@@ -34,7 +34,7 @@ const Nav = () => {
               <img
                 src={"/images/messager.png"}
                 alt="accueil"
-                className="nav-links-img"
+                className="nav-links-img button"
               />
             </NavLink>
           </li>
@@ -44,7 +44,7 @@ const Nav = () => {
               <img
                 src={"/images/profil.png"}
                 alt="accueil"
-                className="nav-links-img"
+                className="nav-links-img button"
               />
             </NavLink>
           </li>
@@ -53,7 +53,7 @@ const Nav = () => {
               <img
                 src={"/images/logout.png"}
                 alt="accueil"
-                className="nav-links-img"
+                className="nav-links-img button"
               />
             </NavLink>
           </li>

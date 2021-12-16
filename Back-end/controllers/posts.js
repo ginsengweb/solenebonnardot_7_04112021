@@ -1,13 +1,12 @@
-const {Op} = require("sequelize")
-// const token = require("../middlewares/authToken")
 const db = require("../models")
 const fs = require("fs")
-const {users} = require("../models")
 
+// import DB models
 const Post = db.posts
 const User = db.users
 const Comments = db.comments
 
+// ********** GET *************
 const getAllPosts = async (req, res) => {
   try {
     Post.findAll({
@@ -38,30 +37,30 @@ const getAllPosts = async (req, res) => {
   }
 }
 
+//  ************* CREATE  ************************
 const createPost = async (req, res) => {
-  // console.log(req.body)
-  const user_id = req.body.user_id
-  // console.log(user_id)
-  let imageUrl
-  console.log(req.file)
   try {
     const user = await User.findOne({
       attributes: ["nom", "prenom", "id"],
-      where: {id: user_id},
+      where: {id: req.body.user_id},
     })
     if (user !== null) {
+      console.log("user : ", user)
+      let imageUrl
       if (req.file) {
+        console.log("filename : ", req.file.filename)
         imageUrl = `http://localhost:4200/api/upload/${req.file.filename}`
+        // `${req.protocol}://${req.get("host")}/upload/${req.file.filename}`
       } else {
         imageUrl = null
       }
       const post = await Post.create({
-        users_id: user_id,
+        users_id: req.body.user_id,
         text_content: req.body.text_content,
         imageUrl: imageUrl,
       })
       post.dataValues.users = user.dataValues
-      console.log("log post", post)
+      console.log("Post créé : ", post.dataValues)
       res.status(201).json({post: post})
     } else {
       res.status(400).json({réponse: "L'utilisateur n'existe pas"})
@@ -70,17 +69,18 @@ const createPost = async (req, res) => {
     return res.status(500).send({error: "Erreur serveur"})
   }
 }
+
+//  ****************  DELETE  *********************
 const deletePost = async (req, res) => {
   try {
-    const post_id = req.body.id
-    console.log("postid:", post_id)
     const post = await Post.findOne({where: {id: req.body.id}})
-    console.log(post.users_id)
+    console.log("Post trouvé : ", post)
     if (post.imageUrl) {
-      const filename = post.imageUrl.split("/images")[1]
-      fs.unlink(`images/${filename}`, () => {
+      const filename = post.imageUrl.split("/upload")[1]
+      console.log("Filename to Delete: ", filename)
+      fs.unlink(`upload/${filename}`, () => {
         Post.destroy({where: {id: req.body.id}})
-        res.status(200).json({message: "Post supprimé"})
+        res.status(200).json({message: "Post et image supprimé"})
       })
     } else {
       Post.destroy({where: {id: post.id}}, {truncate: true})

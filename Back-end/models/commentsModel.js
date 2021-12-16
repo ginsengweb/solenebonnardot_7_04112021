@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      content: {type: DataTypes.STRING, allowNull: false},users_id: {type: DataTypes.INTEGER, allowNull: false},post_id: {type: DataTypes.INTEGER, allowNull: false},
+      content: {type: DataTypes.STRING, allowNull: false},
+      users_id: {type: DataTypes.INTEGER, allowNull: false},
+      post_id: {type: DataTypes.INTEGER, allowNull: false},
     },
 
     {

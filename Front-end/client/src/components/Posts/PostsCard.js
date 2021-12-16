@@ -2,28 +2,39 @@ import axios from "axios"
 import React, {useState, useEffect} from "react"
 import CommentForm from "./CommentForm"
 import CommentsCard from "./CommentsCard"
+
+//  DAYJS
 import dayjs from "dayjs"
 require("dayjs/locale/fr")
 const relativeTime = require("dayjs/plugin/relativeTime")
 dayjs.extend(relativeTime)
+
 const PostsCard = props => {
   const {post} = props
+
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
   const [dataComment, setDataComment] = useState([])
   const [showComments, setShowComments] = useState(false)
+
   const comments = post.comments
   useEffect(() => {
     setDataComment(comments)
+    console.log("useEffect setDataComments postCard l.22 lancé")
   }, [])
 
+  // Récupéraiton infos user storage
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
   let users_id = userInfo.id
   let users_admin = userInfo.admin
+
+  // Afficher l'icône delete
   useEffect(() => {
     if (post.users_id === users_id || users_admin === 1) {
       setShowDeleteIcon(true)
     }
   }, [users_id, post.users_id, users_admin])
+
+  // Delete
   const handleDelete = () => {
     axios({
       method: "DELETE",
@@ -39,7 +50,7 @@ const PostsCard = props => {
       },
     })
       .then(res => {
-        props.DeletePost(res.data)
+        props.addPost(res.data.post)
       })
       .catch(err => {
         console.log(err)
@@ -47,11 +58,18 @@ const PostsCard = props => {
   }
   const addNewComment = newComment => {
     console.log(newComment)
+    dataComment.reverse()
     setDataComment(dataComment.concat(newComment))
+    dataComment.reverse()
+    setDataComment(dataComment)
   }
   const deleteComment = commentToDelete => {
     console.log(commentToDelete)
-    setDataComment(dataComment.shi(commentToDelete))
+    console.log(post.comments)
+    let index = dataComment.indexOf(commentToDelete)
+    console.log("index = ", index)
+    dataComment.splice(index, 1)
+    setDataComment(dataComment)
   }
   return (
     <li className="card">
