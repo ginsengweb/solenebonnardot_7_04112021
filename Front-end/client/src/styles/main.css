@@ -12,6 +12,14 @@ button:hover,
           transform: scale(1.09);
 }
 
+span {
+  color: #bdbdbd;
+  font-style: italic;
+  font-size: 0.9rem;
+  width: 100%;
+  padding-left: 130px;
+}
+
 .nav {
   background-color: rgba(152, 148, 189, 0.336);
   display: -webkit-box;

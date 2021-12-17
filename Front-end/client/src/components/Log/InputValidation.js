@@ -10,8 +10,7 @@ const Inscription = () => {
 
   const handleInscription = e => {
     e.preventDefault()
-    const emailError = document.querySelector(".email.error")
-    const passwordError = document.querySelector(".password.error")
+
     axios({
       method: "POST",
       url: `http://localhost:4200/api/auth/inscription`,
@@ -53,7 +52,7 @@ const Inscription = () => {
           type="text"
           name="nom"
           id="nom"
-          onChange={e => setEmail(e.target.value)}
+          // onChange={e => setEmail(e.target.value)}
           // value={nom}
         />
         <br />
