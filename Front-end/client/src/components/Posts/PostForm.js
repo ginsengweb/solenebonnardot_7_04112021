@@ -97,7 +97,7 @@ const PostForm = props => {
             type="file"
             id="imageUrl"
             name="file"
-            accept=".jpg, .jpeg, .png"
+            accept=".jpg, .jpeg, .png, .gif"
             onChange={e => handlePicture(e)}
           />
           <input className="post-button button" type="submit" value="Poster" />

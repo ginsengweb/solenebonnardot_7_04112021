@@ -4,17 +4,21 @@ import {useForm} from "react-hook-form"
 import {useState} from "react"
 
 const Connexion = () => {
+  // useState
   const [errorData, setErrorData] = useState("")
 
+  // registrer + err
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm()
 
+  // usenavigate
   const navigate = useNavigate()
 
   const onSubmit = data => {
+    // axios
     axios({
       method: "POST",
       url: `http://localhost:4200/api/auth/connexion`,
@@ -40,6 +44,7 @@ const Connexion = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="accueil-form">
+        {/* email */}
         <label htmlFor="email">Email</label>
         <br />
         <input
@@ -51,6 +56,8 @@ const Connexion = () => {
         />
         {errors.email && <span>{errors.email.message}</span>}
         <br />
+
+        {/* password */}
         <label htmlFor="password">Mot de passe</label>
         <br />
         <input

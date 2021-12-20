@@ -113,3 +113,68 @@
     border-radius: 3px;
   }
 }
+@media screen and (max-width: 700px) {
+  .posts {
+    padding: 10px 0;
+    .post-form {
+      width: 100%;
+      min-width: 0px;
+      flex-direction: column;
+      margin: 10px auto;
+      padding: 10px 0;
+      border-radius: 0;
+      .column1 {
+        width: 90%;
+        margin: 10px auto;
+        .text_content_input {
+          margin: 10px 0;
+        }
+      }
+      .column2 {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        label {
+          img {
+            margin: 0px 20px;
+            width: 60px;
+            height: 60px;
+          }
+        }
+        input {
+          margin-right: 50px;
+        }
+      }
+    }
+    .posts-list {
+      margin: 0;
+      width: 100%;
+      min-width: 0px;
+      .card {
+        .data {
+          &-header {
+            justify-content: space-around;
+            max-width: 320px;
+            margin: 10px auto;
+          }
+          &-container {
+            .post-image {
+              max-width: 90%;
+              max-height: 300px;
+              margin: 10px auto;
+            }
+          }
+          &-footer {
+            margin-top: 20px;
+            padding-left: 20px;
+          }
+        }
+      }
+    }
+  }
+  .preview-container {
+    width: 80%;
+    margin: 10px auto;
+    min-width: 0px;
+  }
+}

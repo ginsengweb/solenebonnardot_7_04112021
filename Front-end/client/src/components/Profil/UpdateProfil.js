@@ -39,7 +39,6 @@ const UpdateProfil = () => {
       },
     })
       .then(res => {
-        console.log(res.data.user)
         let userInfo = JSON.stringify(res.data.user)
         localStorage.setItem("userInfo", userInfo)
       })

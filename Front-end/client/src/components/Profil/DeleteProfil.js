@@ -4,7 +4,6 @@ const DeleteProfil = () => {
   const handleDelete = () => {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"))
     let userId = userInfo.id
-    console.log(userId)
     axios({
       method: "DELETE",
       url: "http://localhost:4200/api/user",
@@ -17,7 +16,6 @@ const DeleteProfil = () => {
       },
     })
       .then(res => {
-        console.log(res.data)
         localStorage.clear()
       })
       .catch(err => {

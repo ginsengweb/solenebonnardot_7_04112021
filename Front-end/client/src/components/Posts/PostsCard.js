@@ -20,7 +20,7 @@ const PostsCard = props => {
   useEffect(() => {
     setDataComment(comments)
     console.log("useEffect setDataComments postCard l.22 lancé")
-  }, [])
+  }, [comments])
 
   // Récupéraiton infos user storage
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))
@@ -58,18 +58,17 @@ const PostsCard = props => {
   }
   const addNewComment = newComment => {
     console.log(newComment)
-    dataComment.reverse()
     setDataComment(dataComment.concat(newComment))
-    dataComment.reverse()
-    setDataComment(dataComment)
   }
   const deleteComment = commentToDelete => {
     console.log(commentToDelete)
-    console.log(post.comments)
+    console.log(dataComment)
     let index = dataComment.indexOf(commentToDelete)
     console.log("index = ", index)
-    dataComment.splice(index, 1)
-    setDataComment(dataComment)
+    setDataComment(dataComment.splice(index, 1))
+
+    console.log(dataComment)
+    console.log(comments)
   }
   return (
     <li className="card">

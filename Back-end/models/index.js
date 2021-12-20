@@ -2,6 +2,7 @@ const dbConfig = require("../config/db")
 
 const {Sequelize, DataTypes} = require("sequelize")
 
+// Configuration sequelize
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -26,6 +27,7 @@ const db = {}
 
 db.Sequelize = sequelize
 
+// Routes models
 db.users = require("./usersModel")(sequelize, DataTypes)
 db.posts = require("./postsModel")(sequelize, DataTypes)
 db.comments = require("./commentsModel")(sequelize, DataTypes)
@@ -34,6 +36,7 @@ db.Sequelize.sync({force: false}).then(() => {
   console.log("All models were synchronized successfully.")
 })
 
+// Foreign Keys
 db.users.hasMany(db.posts, {
   foreignKey: "users_id",
   as: "posts",

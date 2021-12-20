@@ -52,3 +52,25 @@
     }
   }
 }
+
+@media screen and (max-width: 700px) {
+  .comment-form {
+    margin-left: 0px;
+    width: 280px;
+    .comment-button {
+      margin-right: 10px;
+    }
+  }
+  .comments {
+    &-list {
+      padding: 10px 5px;
+      .comments-card {
+        &-data {
+          &-header {
+            justify-content: space-around;
+          }
+        }
+      }
+    }
+  }
+}

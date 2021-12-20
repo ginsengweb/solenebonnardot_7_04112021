@@ -4,6 +4,7 @@ const path = require("path")
 const app = express()
 require("dotenv").config({path: "./config/.env"})
 
+// npm CORS
 let corsOptions = {
   origin: `http://${process.env.HOST}:${process.env.CLIENT_PORT}`,
   allowHeader: ["Content-Type", "Authorization"],
@@ -30,7 +31,7 @@ app.use("/api/upload", express.static(path.join(__dirname, "upload")))
 // port
 const PORT = process.env.SERVER_PORT || 4200
 
-//server
+// server
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)
 })

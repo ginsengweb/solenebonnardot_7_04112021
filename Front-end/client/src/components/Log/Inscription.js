@@ -4,16 +4,20 @@ import {useForm} from "react-hook-form"
 import {useState} from "react"
 
 const Inscription = () => {
+  // useState
   const [errorData, setErrorData] = useState("")
 
+  // register
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm()
 
+  // navigate
   const navigate = useNavigate()
 
+  // axios
   const onSubmit = data => {
     axios({
       method: "POST",
@@ -43,6 +47,7 @@ const Inscription = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="accueil-form">
+        {/* prenom */}
         <label htmlFor="prenom">Prenom</label>
         <br />
         <input
@@ -60,6 +65,7 @@ const Inscription = () => {
         />
         {errors.prenom && <span>{errors.prenom.message}</span>}
         <br />
+        {/* nom */}
         <label htmlFor="nom">Nom</label>
         <br />
         <input
@@ -78,6 +84,7 @@ const Inscription = () => {
         />
         {errors.nom && <span>{errors.nom.message}</span>}
         <br />
+        {/* email */}
         <label htmlFor="email">Email</label>
         <br />
         <input
@@ -89,6 +96,7 @@ const Inscription = () => {
         />
         {errors.email && <span>{errors.email.message}</span>}
         <br />
+        {/* password */}
         <label htmlFor="password">Mot de passe</label>
         <br />
         <input

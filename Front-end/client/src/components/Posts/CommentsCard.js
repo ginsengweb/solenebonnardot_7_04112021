@@ -8,8 +8,7 @@ const relativeTime = require("dayjs/plugin/relativeTime")
 dayjs.extend(relativeTime)
 
 const CommentsCard = props => {
-  const {comments} = props
-
+  let {comments} = props
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
 
   let userInfo = JSON.parse(localStorage.getItem("userInfo"))

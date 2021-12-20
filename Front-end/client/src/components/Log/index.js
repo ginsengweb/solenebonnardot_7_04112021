@@ -3,6 +3,7 @@ import Inscription from "./Inscription"
 import Connexion from "./Connexion"
 
 const Log = () => {
+  // useState
   const [inscriptionModal, setInscriptionModal] = useState(true)
   const [connexionModal, setConnexionModal] = useState(false)
 

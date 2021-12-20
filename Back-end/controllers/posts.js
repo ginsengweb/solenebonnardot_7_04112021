@@ -28,6 +28,7 @@ const getAllPosts = async (req, res) => {
         },
       ],
     }).then(posts => {
+      console.log("Posts : ", posts)
       res.json(posts)
     })
   } catch (error) {
@@ -50,7 +51,6 @@ const createPost = async (req, res) => {
       if (req.file) {
         console.log("filename : ", req.file.filename)
         imageUrl = `http://localhost:4200/api/upload/${req.file.filename}`
-        // `${req.protocol}://${req.get("host")}/upload/${req.file.filename}`
       } else {
         imageUrl = null
       }

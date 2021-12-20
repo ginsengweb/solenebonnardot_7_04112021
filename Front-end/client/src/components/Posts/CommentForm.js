@@ -3,14 +3,18 @@ import axios from "axios"
 import {useForm} from "react-hook-form"
 
 const CommentForm = props => {
+  // useState
   const [message, setMessage] = useState()
 
+  // useEffect (input)
   useEffect(() => {
+    setMessage("")
     setMessage()
   }, [message])
 
   const user_id = JSON.parse(localStorage.getItem("userInfo")).id
 
+  // resgister
   const {
     register,
     handleSubmit,
@@ -18,6 +22,7 @@ const CommentForm = props => {
   } = useForm()
 
   const onSubmit = data => {
+    // axios
     axios({
       method: "POST",
       url: "http://localhost:4200/api/comment",
