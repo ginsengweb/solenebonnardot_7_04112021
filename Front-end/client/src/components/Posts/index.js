@@ -37,11 +37,11 @@ const GetAllPosts = () => {
         <PostForm addPost={addnewpost}></PostForm>
       </div>
       <ul className="posts-list">
-        {data.map(posts => (
+        {data.map((posts, i) => (
           <PostsCard
             className="post-card"
             post={posts}
-            key="posts.name"
+            key={i}
             addPost={addnewpost}
           />
         ))}

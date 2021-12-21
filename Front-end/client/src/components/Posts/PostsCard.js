@@ -57,18 +57,11 @@ const PostsCard = props => {
       })
   }
   const addNewComment = newComment => {
-    console.log(newComment)
     setDataComment(dataComment.concat(newComment))
   }
   const deleteComment = commentToDelete => {
-    console.log(commentToDelete)
-    console.log(dataComment)
-    let index = dataComment.indexOf(commentToDelete)
-    console.log("index = ", index)
-    setDataComment(dataComment.splice(index, 1))
-
-    console.log(dataComment)
-    console.log(comments)
+    let updateComment = dataComment.filter(i => i.id !== commentToDelete.id)
+    setDataComment(updateComment)
   }
   return (
     <li className="card">
@@ -119,11 +112,11 @@ const PostsCard = props => {
         <div className="comments">
           <ul className="comments-list">
             {showComments &&
-              dataComment.map(comments => (
+              dataComment.map((comments, i) => (
                 <CommentsCard
                   className="comments-card"
                   comments={comments}
-                  key="comments.name"
+                  key={i}
                   commentToDelete={deleteComment}
                 />
               ))}
