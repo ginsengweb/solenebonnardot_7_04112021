@@ -3,16 +3,6 @@ import {NavLink} from "react-router-dom"
 import SecuredConnexion from "./Log/SecuredConnection"
 
 const Nav = () => {
-  if (SecuredConnexion(false)) {
-    console.log("boutons nav inactifs")
-  } else {
-    console.log("boutons nav actifs")
-  }
-
-  // activ nav
-
-  // non active nav
-
   return (
     <nav>
       <div className="nav">

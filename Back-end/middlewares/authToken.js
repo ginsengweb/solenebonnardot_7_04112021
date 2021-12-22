@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
   const tokenId = decodedToken.userId
   // Compare avec params
   const userId = req.param("userId")
-
   console.log("userId : ", userId, ",tokenId", tokenId)
   if (userId == tokenId || req.body.users_id == tokenId) {
     console.log("Authentification réussie")

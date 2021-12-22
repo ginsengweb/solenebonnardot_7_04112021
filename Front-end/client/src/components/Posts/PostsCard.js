@@ -19,7 +19,6 @@ const PostsCard = props => {
   const comments = post.comments
   useEffect(() => {
     setDataComment(comments)
-    console.log("useEffect setDataComments postCard l.22 lancé")
   }, [comments])
 
   // Récupéraiton infos user storage

@@ -19,7 +19,6 @@ const GetAllPosts = () => {
         params: {userId: userId},
       })
       .then(res => {
-        console.log(res.user)
         setData(res.data)
       })
   }, [Token, setData, userId])
