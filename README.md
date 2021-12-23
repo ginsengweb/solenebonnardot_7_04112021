@@ -1,17 +1,17 @@
 # solenebonnardot_7_04112021
-#GROUPOMANIA COMMUNITY
+# GROUPOMANIA COMMUNITY
 
 
-##GROUPOMANIA
+## GROUPOMANIA
 
 Ceci est le dernier projet de ma formation Openclassrooms : un réseau social d'entreprise que j'ai nommé groupomania Community.
 J'ai entièrement réalisé ce projet.
-###Les technologies sont les suivantes :
-FRONT : 
+### Les technologies sont les suivantes :
+#### FRONT : 
 - React
 - Sass (node-sass)
 - Packages (axios, dayJs, react-dom, react-router-dom)
-BACK: 
+#### BACK : 
 - NodeJS
 - Express
 - MySQL (manipulé avec MySQL Workbench et la CommandLineClient)
@@ -19,7 +19,7 @@ BACK:
 
 
 
-###Pour lancer Groupomania Community :
+### Pour lancer Groupomania Community :
 Créez un fichier .env dans front-end/client/config
 ```
 $ HOST = localhost
@@ -35,7 +35,7 @@ Back + dépendances
 ```
 $ cd back-end/ && npm i
 ```
-Démarrage du server
+Démarrez le server
 ```
 $ nodemon server.js
 ```
@@ -43,7 +43,7 @@ Ouvrez un nouveau terminal
 ```
 $ cd front-end/client
 ```
-Lancer react :
+Lancez react :
 ```
 $ npm start
 ```
