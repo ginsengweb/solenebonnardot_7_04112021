@@ -21,6 +21,7 @@ BACK:
 
 Pour lancer Groupomania Community :
 Créez un fichier .env dans front-end/client/config
+```
 $ HOST = localhost
 $ CLIENT_PORT = 3000
 $ SERVER_PORT = 8080
@@ -28,13 +29,21 @@ $ DB_USER = dbUser
 $ DB_PASSWORD = dbPassword
 $ DB_NAME = dbName
 $ TOKEN = token
-
+```
 Clônez le repo, puis ouvrez le terminal de commande
 Back + dépendances
+```
 $ cd back-end/ && npm i
+```
 Démarrage du server
+```
 $ nodemon server.js
+```
 Ouvrez un nouveau terminal
+```
 $ cd front-end/client
+```
 Lancer react :
+```
 $ npm start
+```
