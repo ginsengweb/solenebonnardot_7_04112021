@@ -1,12 +1,12 @@
 # solenebonnardot_7_04112021
-GROUPOMANIA COMMUNITY
+#GROUPOMANIA COMMUNITY
 
 
-GROUPOMANIA
+##GROUPOMANIA
 
 Ceci est le dernier projet de ma formation Openclassrooms : un réseau social d'entreprise que j'ai nommé groupomania Community.
 J'ai entièrement réalisé ce projet.
-Les technologies sont les suivantes :
+###Les technologies sont les suivantes :
 FRONT : 
 - React
 - Sass (node-sass)
@@ -19,7 +19,7 @@ BACK:
 
 
 
-Pour lancer Groupomania Community :
+###Pour lancer Groupomania Community :
 Créez un fichier .env dans front-end/client/config
 ```
 $ HOST = localhost
